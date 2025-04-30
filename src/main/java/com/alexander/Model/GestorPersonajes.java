@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.alexander.Interfaces.Observer;
 
-public class GestorEnemigos {
-    ArrayList<Enemigo> enemigos;
+public class GestorPersonajes {
+    ArrayList<Personaje> personajes;
     ArrayList<Observer> observers;
 
     public void subscribe(Observer observer){
@@ -21,38 +21,38 @@ public class GestorEnemigos {
         observers.forEach(item -> item.onChange());
     }
 
-    public GestorEnemigos(){
-        this.enemigos = LectorEnemigos.leerEnemigos();
+    public GestorPersonajes(){
+        this.personajes = LecturaEnemigos.leerEnemigos();
         observers = new ArrayList<>();
     }
 
     public void insertarEnemigo(Enemigo e){
-        this.enemigos.add(e);
+        this.personajes.add(e);
         notifyObservers();
     }
 
     public void eliminarEnemigo(Enemigo e){
-        this.enemigos.remove(e);
+        this.personajes.remove(e);
         notifyObservers();
     }
 
-    public List<Enemigo> getNombreEnemigo(){
-        return this.enemigos;
+    public List<Personaje> getNombreEnemigo(){
+        return this.personajes;
     }
 
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Enemigo enemigo : enemigos) {
-            sb.append(enemigo + "\n");
+        for (Personaje personaje : personajes) {
+            sb.append(personaje + "\n");
         }
         return sb.toString();
     }
 
     public static void main(String[] args) {
-        GestorEnemigos ge = new GestorEnemigos();
-        System.out.println(ge.toString());
+        GestorPersonajes gp = new GestorPersonajes();
+        System.out.println(gp.toString());
     }
 
 }
