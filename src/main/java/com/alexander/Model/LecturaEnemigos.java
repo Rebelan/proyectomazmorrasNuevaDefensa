@@ -14,8 +14,8 @@ import com.alexander.App;
 
 public class LecturaEnemigos {
     
-    public static ArrayList<Enemigo> leerEnemigos(){
-        ArrayList<Enemigo> enemigos = new ArrayList<>();
+    public static ArrayList<Personaje> leerEnemigos(){
+        ArrayList<Personaje> enemigos = new ArrayList<>();
 
         try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(App.class.getResource("data/enemigos.csv").toURI())), StandardCharsets.UTF_8))){
             String linea= br.readLine();
