@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.alexander.Interfaces.Observer;
 
-public class GestorEnemigos {
-    ArrayList<Enemigo> enemigos;
+public class GestorPersonajes {
+    ArrayList<Personaje> personajes;
     ArrayList<Observer> observers;
 
     public void subscribe(Observer observer){
@@ -21,13 +21,13 @@ public class GestorEnemigos {
         observers.forEach(item -> item.onChange());
     }
 
-    public GestorEnemigos(){
-        this.enemigos = LectorEnemigos.leerEnemigos();
+    public CargarPersonajes(){
+        this.personajes = LecturaEnemigos.leerEnemigos();
         observers = new ArrayList<>();
     }
 
     public void insertarEnemigo(Enemigo e){
-        this.enemigos.add(e);
+        this.personaje.add(e);
         notifyObservers();
     }
 
