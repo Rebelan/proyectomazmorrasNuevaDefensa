@@ -13,7 +13,7 @@ import com.alexander.App;
 public class Tablero {
     private Casilla[][] tablero;
 
-    public void LecturaInicioTablero(){
+    public void LecturaInicioTablero(GestorPersonajes gp) {
         String[] columnas;
         int filas = 0;
          try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(App.class.getResource("data/tablero.DARKEST").toURI())), StandardCharsets.UTF_8))){
@@ -29,10 +29,10 @@ public class Tablero {
                             tablero[filas][i] = new Casilla(TipoCasilla.Pared, null);
                             break;
                         case 2:
-                            tablero[filas][i] = new Casilla(TipoCasilla.Suelo, null);
+                            tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getProta());
                             break;
                         case 3:
-                            tablero[filas][i] = new Casilla(TipoCasilla.Suelo, null);
+                            tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getEnemigo());
                             break; 
                         default:
                         System.out.println("Error en el formato del tablero");
