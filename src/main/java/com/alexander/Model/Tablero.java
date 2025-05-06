@@ -42,13 +42,14 @@ public class Tablero {
                filas++;
                 
             }
-            
-            
          } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
+    }
+    public void actualizarCasilla(){
+        
     }
 }
