@@ -30,9 +30,13 @@ public class Tablero {
                             break;
                         case 2:
                             tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getProta());
+                            gp.getProta().setCordX(i);
+                            gp.getProta().setCordY(filas);
                             break;
                         case 3:
                             tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getEnemigo());
+                            gp.getEnemigo().setCordX(i);
+                            gp.getEnemigo().setCordY(filas);
                             break; 
                         default:
                         System.out.println("Error en el formato del tablero");
@@ -50,6 +54,6 @@ public class Tablero {
         }
     }
     public void actualizarCasilla(){
-        
+
     }
 }

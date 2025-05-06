@@ -1,9 +1,13 @@
 package com.alexander.Model;
 
+import java.security.cert.X509CRL;
+
 public class Personaje {
     private int velocidad;
     private int vitalidad;
     private int fuerza;
+    private int cordX;
+    private int cordY;
 
     public Personaje(int velocidad, int vitalidad, int fuerza) {
         this.velocidad = velocidad;
@@ -36,6 +40,21 @@ public class Personaje {
         this.fuerza = fuerza;
     }
 
+    public int getCordX() {
+        return this.cordX;
+    }
+
+    public void setCordX(int cordX) {
+        this.cordX = cordX;
+    }
+
+    public int getCordY() {
+        return this.cordY;
+    }
+
+    public void setCordY(int cordY) {
+        this.cordY = cordY;
+    }
 
     @Override
     public String toString() {
