@@ -6,7 +6,7 @@ import java.util.Random;
 
 import com.alexander.Interfaces.Observer;
 
-public class GestorPersonajes {
+public class GestorPersonajes implements Comparable<GestorPersonajes> {
     Protagonista prota;
     ArrayList<Personaje> personajes;
     ArrayList<Observer> observers;
@@ -56,6 +56,23 @@ public class GestorPersonajes {
             sb.append(personaje + "\n");
         }
         return sb.toString();
+    }
+    public void ordenarPersonajes() {
+        // ordenamos el arraylist de personajes por velocidad
+        // de mayor a menor
+        personajes.sort(null);
+    }
+
+    @Override
+    public int compareTo(GestorPersonajes o) {
+        // comparamos velocidad de los personajes para ordenar el arraylist de mayor a menor
+        if (this.prota.getVelocidad() > o.prota.getVelocidad()) {
+            return -1;
+        } else if (this.prota.getVelocidad() < o.prota.getVelocidad()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }
