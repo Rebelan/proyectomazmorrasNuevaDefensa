@@ -53,7 +53,14 @@ public class Tablero {
             e1.printStackTrace();
         }
     }
-    public void actualizarCasilla(){
-
+    public void actualizarCasilla(Personaje pj, int x, int y) {
+        // Actualiza la casilla del personaje en el tablero
+        if (tablero[x][y].getTipo() == TipoCasilla.Suelo && tablero[x][y].getPersonaje() == null) {
+            tablero[pj.getCordX()][pj.getCordY()].setPersonaje(null);
+            tablero[x][y].setPersonaje(pj);
+            pj.setCordX(x);
+            pj.setCordY(y);
+        }
+        
     }
 }

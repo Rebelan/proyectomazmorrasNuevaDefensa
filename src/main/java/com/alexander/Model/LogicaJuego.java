@@ -9,7 +9,7 @@ public class LogicaJuego {
         this.tablero = tablero;
     }
 
-    public void MoverProtagonista(){
+    public void MoverPersonajes(){
         // Lógica para mover al protagonista
         
     }

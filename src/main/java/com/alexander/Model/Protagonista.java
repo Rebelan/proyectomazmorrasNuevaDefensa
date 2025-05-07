@@ -22,5 +22,5 @@ public class Protagonista extends Personaje {
                 " nombreProta='" + getNombreProta() + "'" +
                 super.toString();
     }
-
+    
 }
