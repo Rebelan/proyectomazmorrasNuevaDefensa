@@ -66,6 +66,9 @@ public class Personaje {
             ", fuerza='" + getFuerza() + "'" +
             "}";
     }
+    public void moverse(int nuevaX, int nuevaY){
+
+    }
 
 }
 
