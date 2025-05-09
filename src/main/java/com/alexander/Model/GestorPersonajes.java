@@ -49,6 +49,7 @@ public class GestorPersonajes {
         Random  random = new Random();
         return (Enemigo) personajes.get(random.nextInt(personajes.size()));
     }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

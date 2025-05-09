@@ -1,10 +1,8 @@
 package com.alexander.Model;
 
-import java.security.cert.X509CRL;
-
 public class Personaje {
     private int velocidad;
-    private int vitalidad;
+    protected int vitalidad;
     private int fuerza;
     private int cordX;
     private int cordY;
@@ -56,6 +54,10 @@ public class Personaje {
         this.cordY = cordY;
     }
 
+    public boolean recibirGolpe(double dmg) {
+        return false;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -64,7 +66,6 @@ public class Personaje {
             ", fuerza='" + getFuerza() + "'" +
             "}";
     }
-
 
 }
 
