@@ -34,9 +34,10 @@ public class Enemigo extends Personaje {
                 ", percepcion='" + getPercepcion() + "'";
     }
     @Override
-    public void moverse(int newX, int newY){
-        
-       
+    public void moverse() {
+        Proveedor p = Proveedor.getInstance();
+        Tablero tab = p.getTab();
+        Protagonista prota = p.getP();
     }
 
 }
