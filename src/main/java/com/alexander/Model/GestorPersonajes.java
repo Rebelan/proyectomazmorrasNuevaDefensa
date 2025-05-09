@@ -74,5 +74,6 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
             return 0;
         }
     }
+    
 
 }

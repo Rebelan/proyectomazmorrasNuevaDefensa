@@ -36,6 +36,7 @@ public class LogicaJuego {
                         if (tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo && tab.EstaCasillaEstaVacia(nuevaX, nuevaY)) {
                             p.moverse(nuevaX, nuevaY);
                             seguir = false;
+                            tab.actualizarCasilla(p, nuevaX, nuevaY);
                         }
                         break;
                     case "S":
@@ -44,6 +45,7 @@ public class LogicaJuego {
                         if (tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo && tab.EstaCasillaEstaVacia(nuevaX, nuevaY)) {
                             p.moverse(nuevaX, nuevaY);
                             seguir = false;
+                            tab.actualizarCasilla(p, nuevaX, nuevaY);
                         }
                         break;
                     case "A":
@@ -52,6 +54,7 @@ public class LogicaJuego {
                         if (tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo && tab.EstaCasillaEstaVacia(nuevaX, nuevaY)) {
                             p.moverse(nuevaX, nuevaY);
                             seguir = false;
+                            tab.actualizarCasilla(p, nuevaX, nuevaY);
                         }
                         break;
                     case "D":
@@ -60,6 +63,7 @@ public class LogicaJuego {
                         if (tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo && tab.EstaCasillaEstaVacia(nuevaX, nuevaY)) {
                             p.moverse(nuevaX, nuevaY);
                             seguir = false;
+                            tab.actualizarCasilla(p, nuevaX, nuevaY);
                         }
                         break;
                     default:

@@ -26,6 +26,7 @@ public class Protagonista extends Personaje {
     public void moverse(int NuevaX, int NuevaY){
         this.setCordX(NuevaX);
         this.setCordY(NuevaY);
+        
     }
     
 }
