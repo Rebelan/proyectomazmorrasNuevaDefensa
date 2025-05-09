@@ -33,5 +33,10 @@ public class Enemigo extends Personaje {
                 super.toString() +
                 ", percepcion='" + getPercepcion() + "'";
     }
+    @Override
+    public void moverse(int newX, int newY){
+        
+       
+    }
 
 }

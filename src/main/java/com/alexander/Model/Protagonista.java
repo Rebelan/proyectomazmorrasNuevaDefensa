@@ -22,5 +22,10 @@ public class Protagonista extends Personaje {
                 " nombreProta='" + getNombreProta() + "'" +
                 super.toString();
     }
+    @Override
+    public void moverse(int NuevaX, int NuevaY){
+        this.setCordX(NuevaX);
+        this.setCordY(NuevaY);
+    }
     
 }

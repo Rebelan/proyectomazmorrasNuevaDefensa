@@ -63,4 +63,11 @@ public class Tablero {
         }
         
     }
+    public TipoCasilla getTipoCasilla(int x, int y) {
+        return tablero[x][y].getTipo();
+    }
+    public boolean EstaCasillaEstaVacia(int x, int y) {
+        return tablero[x][y].getPersonaje() == null;
+
+    }
 }

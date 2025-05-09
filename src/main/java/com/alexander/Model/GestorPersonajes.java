@@ -28,17 +28,17 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
         observers = new ArrayList<>();
     }
 
-    public void insertarEnemigo(Enemigo e) {
+    public void insertarPersonaje(Personaje e) {
         this.personajes.add(e);
         notifyObservers();
     }
 
-    public void eliminarEnemigo(Enemigo e) {
+    public void eliminarEnemigo(Personaje e) {
         this.personajes.remove(e);
         notifyObservers();
     }
 
-    public List<Personaje> getNombreEnemigo() {
+    public List<Personaje> getNombrePersonaje() {
         return this.personajes;
     }
 
