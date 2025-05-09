@@ -1,6 +1,6 @@
 package com.alexander.Model;
 
-import java.security.cert.X509CRL;
+
 
 public class Personaje {
     private int velocidad;
