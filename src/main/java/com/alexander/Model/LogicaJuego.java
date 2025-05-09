@@ -55,9 +55,15 @@ public class LogicaJuego {
                         }
                         break;
                     case "D":
-                        
+                        nuevaX = p.getCordX();
+                        nuevaY = p.getCordY()+1;
+                        if (tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo && tab.EstaCasillaEstaVacia(nuevaX, nuevaY)) {
+                            p.moverse(nuevaX, nuevaY);
+                            seguir = false;
+                        }
                         break;
                     default:
+                    System.out.println("Error, introduce una opcion valida");
                         break;
                 }
                 }
