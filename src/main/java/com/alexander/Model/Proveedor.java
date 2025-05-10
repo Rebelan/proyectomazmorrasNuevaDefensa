@@ -5,6 +5,7 @@ public class Proveedor {
     private GestorPersonajes gp;
     private Tablero tab;
     private Protagonista p;
+    private Enemigo e;
 
     private Proveedor() {
         this.gp = new GestorPersonajes();
@@ -34,4 +35,11 @@ public class Proveedor {
     public void setP(Protagonista p) {
         this.p = p;
     }
+    public Enemigo getE() {
+        return e;
+    }
+    public void setE(Enemigo e) {
+        this.e = e;
+    }
+    
 }
