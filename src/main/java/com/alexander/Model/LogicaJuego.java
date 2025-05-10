@@ -20,10 +20,7 @@ public class LogicaJuego {
         boolean seguir = true;
         for (int i = 0; i < gp.getNombrePersonaje().size(); i++) {
             Personaje p = gp.getNombrePersonaje().get(i);
-            if (p instanceof Protagonista) {
-                p.moverse();
-                
-        }
+            p.moverse();
     }
   }
 }

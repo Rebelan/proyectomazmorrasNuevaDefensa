@@ -13,7 +13,8 @@ public class Protagonista extends Personaje {
         super(velocidad, vitalidad, fuerza);
         this.nombreProta = nombreProta;
     }
-      public void subscribe(Observer observer) {
+
+    public void subscribe(Observer observer) {
         observers.add(observer);
     }
 
@@ -32,9 +33,11 @@ public class Protagonista extends Personaje {
     public void setNombreProta(String nombreProta) {
         this.nombreProta = nombreProta;
     }
+
     public TipoMov getDireccion() {
         return this.direccion;
     }
+
     public void setDireccion(TipoMov direccion) {
         this.direccion = direccion;
     }
@@ -45,23 +48,31 @@ public class Protagonista extends Personaje {
                 " nombreProta='" + getNombreProta() + "'" +
                 super.toString();
     }
+
     @Override
-    public void moverse(){
-        
+    public void moverse() {
+        Proveedor p = Proveedor.getInstance();
+        int nuevaX=p.getP().getCordX();
+        int nuevaY=p.getP().getCordY();
         switch (direccion) {
             case ARRIBA:
-               
+                nuevaX = p.getP().getCordX() - 1;
                 break;
             case ABAJO:
-                setCordY(getCordY() + getVelocidad());
+                nuevaX = p.getP().getCordX() + 1;
                 break;
             case IZQUIERDA:
-                setCordX(getCordX() - getVelocidad());
+                nuevaY = p.getP().getCordY() - 1;
                 break;
             case DERECHA:
-                setCordX(getCordX() + getVelocidad());
+                nuevaY = p.getP().getCordY() + 1;
                 break;
-       
+            default:
+                break;
+        }
+        if (p.getTab().EstaCasillaEstaVacia(nuevaX, nuevaY)&& p.getTab().getTipoCasilla(nuevaX, nuevaY)== TipoCasilla.Suelo) {
+            p.getTab().actualizarCasilla(p.getP(), nuevaX, nuevaY);
+            notifyObservers();
         }
     }
 }
