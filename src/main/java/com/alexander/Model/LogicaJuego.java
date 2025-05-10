@@ -16,8 +16,6 @@ public class LogicaJuego {
 
     public void MoverPersonajes() {
         gp.ordenarPersonajes();
-        
-        boolean seguir = true;
         for (int i = 0; i < gp.getNombrePersonaje().size(); i++) {
             Personaje p = gp.getNombrePersonaje().get(i);
             p.moverse();
