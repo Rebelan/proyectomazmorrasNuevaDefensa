@@ -1,10 +1,7 @@
 package com.alexander.Model;
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> main
 public class Personaje {
     private int velocidad;
     protected int vitalidad;
