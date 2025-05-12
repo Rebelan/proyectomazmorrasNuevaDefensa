@@ -890,6 +890,11 @@
                   <Image url="@data/SpriteCamino.jpg" />
                </image>
             </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="30.0">
+               <image>
+                  <Image url="@data/SpriteProta.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
         <Button fx:id="secondaryButton" onAction="#switchToPrimary" text="Switch to Primary View" />
