@@ -52,6 +52,7 @@ public class Enemigo extends Personaje {
                 ", percepcion='" + getPercepcion() + "'";
     }
 
+
     @Override
     public void moverse() {
         Random r = new Random();
@@ -60,32 +61,70 @@ public class Enemigo extends Personaje {
         Protagonista prota = p.getP();
         Enemigo enemigo = p.getE();
         boolean seguir = true;
-        if (enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY(), prota.getCordX(),
-                prota.getCordY()) <= enemigo.getPercepcion()) {
+        float Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY(), prota.getCordX(),
+                prota.getCordY());
+        if (Calculo1 <= enemigo.getPercepcion()) {
+            if (tab.getTipoCasilla(enemigo.getCordX() - 1, enemigo.getCordY()) != TipoCasilla.Pared) {
+                if (Calculo1 < enemigo.CalculoAlgoritmo(enemigo.getCordX() - 1, enemigo.getCordY(), prota.getCordX(),
+                        prota.getCordY())) {
+                    Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX() - 1, enemigo.getCordY(), prota.getCordX(),
+                            prota.getCordY());
+                }
+            }
+            if (tab.getTipoCasilla(enemigo.getCordX() + 1, enemigo.getCordY()) != TipoCasilla.Pared) {
+                if (Calculo1 < enemigo.CalculoAlgoritmo(enemigo.getCordX() + 1, enemigo.getCordY(), prota.getCordX(),
+                        prota.getCordY())) {
+                    Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX() + 1, enemigo.getCordY(), prota.getCordX(),
+                            prota.getCordY());
+                }
+            }
+            if (tab.getTipoCasilla(enemigo.getCordX(), enemigo.getCordY() - 1) != TipoCasilla.Pared) {
+                if (Calculo1 < enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY() - 1, prota.getCordX(),
+                        prota.getCordY())) {
+                    Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY() - 1, prota.getCordX(),
+                            prota.getCordY());
+                }
+            }
+            if (tab.getTipoCasilla(enemigo.getCordX(), enemigo.getCordY() + 1) != TipoCasilla.Pared) {
+                if (Calculo1 < enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY() + 1, prota.getCordX(),
+                        prota.getCordY())) {
+                    Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY() + 1, prota.getCordX(),
+                            prota.getCordY());
+                }
+            }
 
         } else {
-            int opRandom = r.nextInt(4);
-            switch (opRandom) {
-                case 0:
-                    if (tab.EstaCasillaEstaVacia(enemigo.getCordX() - 1, enemigo.getCordY())
-                            && tab.getTipoCasilla(enemigo.getCordX() - 1, enemigo.getCordY()) == TipoCasilla.Suelo) {
-                        enemigo.setCordX(enemigo.getCordX() - 1);
-                        enemigo.notifyObservers();
-                        tab.actualizarCasilla(enemigo, enemigo.getCordX(), enemigo.getCordY());
-                    }
-                    break;
-                case 1:
+            int nuevaX = enemigo.getCordX();
+            int nuevaY = enemigo.getCordY();
+            while (seguir) {
+                int opRandom = r.nextInt(4);
+                switch (opRandom) {
+                    case 0: // Arriba:
+                        nuevaX = nuevaX - 1;
+                        break;
+                    case 1:// Abajo:
+                        nuevaX = nuevaX + 1;
+                        break;
+                    case 2:// Izquierda:
+                        nuevaY = nuevaY - 1;
+                        break;
+                    case 3:// Derecha
+                        nuevaY = nuevaY + 1;
+                        break;
 
-                    break;
-                case 2:
+                    default:
+                        break;
+                }
+                if (tab.EstaCasillaEstaVacia(nuevaX, nuevaY)
+                        && tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo) {
+                    tab.actualizarCasilla(null, enemigo.getCordX(), enemigo.getCordY());
+                    enemigo.setCordX(nuevaX);
+                    enemigo.setCordY(nuevaY);
+                    tab.actualizarCasilla(enemigo, nuevaX, nuevaY);
+                    seguir = false;
+                    enemigo.notifyObservers();
+                }
 
-                    break;
-                case 3:
-
-                    break;
-
-                default:
-                    break;
             }
         }
 
