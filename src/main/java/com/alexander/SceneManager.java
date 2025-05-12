@@ -36,13 +36,13 @@ public class SceneManager {
     public void setScene(SceneID sceneID, String fxml){
         
         Screen screen = Screen.getPrimary();
-
+        String ruta = "com/alexander/views/";
         
         double screenWidth = screen.getBounds().getWidth();
         double screenHeight = screen.getBounds().getHeight();
         try {
             
-            URL url = App.class.getResource("views/" + fxml + ".fxml");
+            URL url = App.class.getResource(ruta + fxml + ".fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root, screenWidth*0.7, screenHeight*0.7);
