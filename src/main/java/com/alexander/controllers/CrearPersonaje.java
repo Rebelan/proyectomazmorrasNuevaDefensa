@@ -3,6 +3,12 @@ package com.alexander.controllers;
 
 
 
+import com.alexander.SceneID;
+import com.alexander.SceneManager;
+import com.alexander.Model.Personaje;
+import com.alexander.Model.Protagonista;
+import com.alexander.Model.Proveedor;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -48,7 +54,20 @@ public class CrearPersonaje {
     @FXML
     Button comenzar;
 
-    
+    Protagonista prota;
 
+    public void initialize() {
+        comenzar.setOnAction(event -> {
+            String nombre = textNombre.getText();
+            int velocidad = Integer.parseInt(textVelocidad.getText());
+            int vitalidad = Integer.parseInt(textVitalidad.getText());
+            int fuerza = Integer.parseInt(textFuerza.getText());
+
+            prota = new Protagonista(velocidad, vitalidad, fuerza, nombre);
+            Proveedor.getInstance().setP(prota);
+            SceneManager.getInstance().loadScene(SceneID.Segunda);
+            
+        });
+    }
    
 }

@@ -26,6 +26,7 @@ public class App extends Application {
         sm.setScene(SceneID.Segunda, "Dungeon");
 
         sm.loadScene(SceneID.Primera);
+        
     }
 
     public static void main(String[] args) {
