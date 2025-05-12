@@ -13,22 +13,19 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    private static Scene scene;
-
+    @SuppressWarnings("exports")
     @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
-    }
+    public void start(Stage stage) throws IOException{
+        stage.setTitle("La Mazmorra - Juego de Rol");
 
-    public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
+        SceneManager sm = SceneManager.getInstance();
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        sm.init(stage);
+
+        sm.setScene(SceneID.Primera, "PrimaryController");
+        sm.setScene(SceneID.Segunda, "SecondaryController");
+
+        sm.loadScene(SceneID.Primera);
     }
 
     public static void main(String[] args) {
