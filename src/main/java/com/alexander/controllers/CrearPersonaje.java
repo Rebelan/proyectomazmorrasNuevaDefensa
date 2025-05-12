@@ -65,6 +65,7 @@ public class CrearPersonaje {
 
             prota = new Protagonista(velocidad, vitalidad, fuerza, nombre);
             Proveedor.getInstance().setP(prota);
+            Proveedor.getInstance().getGp().insertarPersonaje(prota);
             SceneManager.getInstance().loadScene(SceneID.Segunda);
             
         });
