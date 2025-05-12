@@ -22,8 +22,8 @@ public class App extends Application {
 
         sm.init(stage);
 
-        sm.setScene(SceneID.Primera, "PrimaryController");
-        sm.setScene(SceneID.Segunda, "SecondaryController");
+        sm.setScene(SceneID.Primera, "CrearPersonaje");
+        sm.setScene(SceneID.Segunda, "Dungeon");
 
         sm.loadScene(SceneID.Primera);
     }

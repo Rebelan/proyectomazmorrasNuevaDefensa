@@ -6,10 +6,7 @@ import com.alexander.App;
 
 import javafx.fxml.FXML;
 
-public class PrimaryController {
+public class Dungeon {
 
-    @FXML
-    private void switchToSecondary() throws IOException {
-        
-    }
+    
 }
