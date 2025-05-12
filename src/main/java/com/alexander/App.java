@@ -22,8 +22,8 @@ public class App extends Application {
 
         sm.init(stage);
 
-        sm.setScene(SceneID.Primera, "CrearPersonaje");
-        sm.setScene(SceneID.Segunda, "Dungeon");
+        sm.setScene(SceneID.Primera, "primary.fxml");
+        sm.setScene(SceneID.Segunda, "secondary.fxml");
 
         sm.loadScene(SceneID.Primera);
         

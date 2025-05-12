@@ -5,7 +5,7 @@ package com.alexander.controllers;
 
 import com.alexander.SceneID;
 import com.alexander.SceneManager;
-import com.alexander.Model.Personaje;
+
 import com.alexander.Model.Protagonista;
 import com.alexander.Model.Proveedor;
 
