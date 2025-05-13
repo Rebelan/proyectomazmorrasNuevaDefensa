@@ -4,6 +4,7 @@ package com.alexander.controllers;
 import com.alexander.App;
 import com.alexander.Interfaces.Observer;
 import com.alexander.Model.Personaje;
+import com.alexander.Model.Protagonista;
 import com.alexander.Model.GestorPersonajes;
 import com.alexander.Model.Proveedor;
 import com.alexander.Model.Tablero;
@@ -19,6 +20,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 
 public class Dungeon implements Observer {
     
@@ -27,6 +29,13 @@ public class Dungeon implements Observer {
 
     @FXML
     GridPane gridTablero;
+
+    @FXML
+    GridPane gridTableroPersonajes;
+
+    @FXML
+    StackPane stackPane;
+
     GestorPersonajes gp;
 
     @FXML
@@ -64,6 +73,28 @@ public void initialize() {
 
     generarMapa();
 }
+    public void GenerarMapaPersonajes(){
+        Tablero tableroEnemigos = new Tablero();
+        tableroEnemigos.LecturaInicioTablero(gp);
+        tableroEnemigos.getTablero();
+        gridTableroPersonajes.getChildren().clear();
+
+        Image enemigo = new Image(App.class.getResourceAsStream("data/enemigo.png"),50,50,false,false);
+        Image prota = new Image(App.class.getResourceAsStream("data/prota.png"),50,50,false,false);
+
+        for (int fila = 0; fila < tableroEnemigos.getNFilas(); fila++) {
+            for (int col = 0; col < tableroEnemigos.getNColumnas(); col++) {
+                if(tableroEnemigos.getTipoCasilla(fila, col)==TipoCasilla.Suelo) {
+                    if(tableroEnemigos.getPersonaje(col, fila) instanceof Protagonista) {
+                        gridTableroPersonajes.add(new ImageView(prota), col, fila);
+                    } else {
+                        gridTableroPersonajes.add(new ImageView(enemigo), col, fila);
+                    }
+                }
+            }
+        }
+        
+    }
 
     public void generarMapa() {
         Tablero tablero = new Tablero();
@@ -89,8 +120,7 @@ public void initialize() {
 
     @Override
     public void onChange() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onChange'");
+        
     }
 
 }

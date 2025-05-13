@@ -13,6 +13,7 @@ import com.alexander.App;
 public class Tablero {
     private Casilla[][] tablero;
 
+
     public Casilla[][] LecturaInicioTablero(GestorPersonajes gp) {
         tablero = new Casilla[13][13];
         String[] columnas;
@@ -71,6 +72,10 @@ public class Tablero {
 
     public TipoCasilla getTipoCasilla(int x, int y) {
         return tablero[x][y].getTipo();
+    }
+
+    public Personaje getPersonaje(int x, int y) {
+        return tablero[x][y].getPersonaje();
     }
 
     public boolean EstaCasillaEstaVacia(int x, int y) {

@@ -27,9 +27,9 @@
             <Label fx:id="id_nombre" text="Nombre" />
             <TextField fx:id="textNombre" GridPane.columnIndex="1" />
             <Label fx:id="id_velocidad" text="Velocidad" GridPane.rowIndex="1" />
-            <TextField fx:id="textCastillo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textVelocidad" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="id_vitalidad" text="Vitalidad" GridPane.rowIndex="2" />
-            <TextField fx:id="textEdad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textVitalidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="id_fuerza" text="Fuerza" GridPane.rowIndex="3" />
             <TextField fx:id="textFuerza" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>

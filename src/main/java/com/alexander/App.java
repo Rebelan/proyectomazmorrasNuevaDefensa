@@ -23,7 +23,7 @@ public class App extends Application {
         sm.setScene(SceneID.Primera, "primary");
         sm.setScene(SceneID.Segunda, "secondary");
 
-        sm.loadScene(SceneID.Segunda);
+        sm.loadScene(SceneID.Primera);
         
     }
 
