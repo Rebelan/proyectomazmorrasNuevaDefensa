@@ -36,15 +36,17 @@ public class SceneManager {
     public void setScene(SceneID sceneID, String fxml){
         
         Screen screen = Screen.getPrimary();
-        String ruta = "com/alexander/views/";
+       
         
         double screenWidth = screen.getBounds().getWidth();
         double screenHeight = screen.getBounds().getHeight();
         try {
             
-            URL url = App.class.getResource(ruta + fxml + ".fxml");
-            FXMLLoader fxmlLoader = new FXMLLoader(url);
-            Parent root = fxmlLoader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/alexander/views/"+fxml+".fxml"));
+            if (loader.getLocation() == null) {
+                throw new IllegalStateException(fxml + " no se encuentra en la ruta especificada");   
+            }
+            Parent root = loader.load();
             Scene scene = new Scene(root, screenWidth*0.7, screenHeight*0.7);
             scenes.put(sceneID, scene); 
         } catch (IOException e) {
