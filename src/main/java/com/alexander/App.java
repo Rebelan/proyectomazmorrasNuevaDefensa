@@ -1,9 +1,7 @@
 package com.alexander;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,10 +20,11 @@ public class App extends Application {
 
         sm.init(stage);
 
-        sm.setScene(SceneID.Primera, "CrearPersonaje");
-        sm.setScene(SceneID.Segunda, "Dungeon");
+        sm.setScene(SceneID.Primera, "primary");
+        sm.setScene(SceneID.Segunda, "secondary");
 
         sm.loadScene(SceneID.Primera);
+        
     }
 
     public static void main(String[] args) {

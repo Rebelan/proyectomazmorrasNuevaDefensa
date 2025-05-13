@@ -49,7 +49,7 @@ public class Tablero {
          } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e1) {
-            // TODO Auto-generated catch block
+          
             e1.printStackTrace();
         }
     }
