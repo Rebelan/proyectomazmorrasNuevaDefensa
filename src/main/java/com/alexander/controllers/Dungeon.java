@@ -13,9 +13,12 @@ import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 
 public class Dungeon implements Observer {
     
@@ -27,21 +30,40 @@ public class Dungeon implements Observer {
     GestorPersonajes gp;
 
     @FXML
-    public void initialize() {
-        gp = Proveedor.getInstance().getGp();
-        gp.subscribe(this);
+public void initialize() {
+    gp = Proveedor.getInstance().getGp();
+    gp.subscribe(this);
 
-        gridTablero = new GridPane();
-        gridTablero.setPadding(new Insets(10, 50, 10, 50));
+    gridTablero.setHgap(0); // Sin espaciado horizontal
+    gridTablero.setVgap(0); // Sin espaciado vertical
+    gridTablero.setPadding(Insets.EMPTY); // Sin relleno
+    gridTablero.setGridLinesVisible(false); // Opcional: Ocultar líneas de cuadrícula
 
-        Proveedor.getInstance().getTab().LecturaInicioTablero(gp);
+    Proveedor.getInstance().getTab().LecturaInicioTablero(gp);
+    int nFilas = Proveedor.getInstance().getTab().getNFilas();
+    int nColumnas = Proveedor.getInstance().getTab().getNColumnas();
 
-        ColumnConstraints col = new ColumnConstraints();
-        col.setHgrow(Priority.ALWAYS);
-        col.setHalignment(HPos.LEFT);
-        gridTablero.getColumnConstraints().add(col);
-        generarMapa();
+    gridTablero.getRowConstraints().clear();
+    gridTablero.getColumnConstraints().clear();
+
+    for (int i = 0; i < nFilas; i++) {
+        RowConstraints row = new RowConstraints();
+        row.setMinHeight(30);
+        row.setPrefHeight(30);
+        row.setMaxHeight(30);
+        gridTablero.getRowConstraints().add(row);
     }
+
+    for (int i = 0; i < nColumnas; i++) {
+        ColumnConstraints col = new ColumnConstraints();
+        col.setMinWidth(30);
+        col.setPrefWidth(30);
+        col.setMaxWidth(30);
+        gridTablero.getColumnConstraints().add(col);
+    }
+
+    generarMapa();
+}
 
     public void generarMapa() {
         Tablero tablero = new Tablero();
@@ -50,17 +72,15 @@ public class Dungeon implements Observer {
 
         gridTablero.getChildren().clear();
 
-        Image camino = new Image(getClass().getResourceAsStream("data/SpriteCamino.jpg"));
-        Image muro = new Image(getClass().getResourceAsStream("data/SpriteMuro.png"));
-        ImageView iViewCamino = new ImageView(camino);
-        ImageView iViewMuro = new ImageView(muro);
+        Image camino = new Image(App.class.getResourceAsStream("data/SpriteCamino.jpg"),50,50,false,false);
+        Image muro = new Image(App.class.getResourceAsStream("data/SpriteMuro.png"),50,50,false,false);
 
         for (int fila = 0; fila < tablero.getNFilas(); fila++) {
             for (int col = 0; col < tablero.getNColumnas(); col++) {
                 if(tablero.getTipoCasilla(fila, col)==TipoCasilla.Pared) {
-                    gridTablero.add(iViewMuro, col, fila);
+                    gridTablero.add(new ImageView(muro), col, fila);
                 } else {
-                    gridTablero.add(iViewCamino, col, fila);
+                    gridTablero.add(new ImageView(camino), col, fila);
                 }
             }
         }

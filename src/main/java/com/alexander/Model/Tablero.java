@@ -14,6 +14,7 @@ public class Tablero {
     private Casilla[][] tablero;
 
     public Casilla[][] LecturaInicioTablero(GestorPersonajes gp) {
+        tablero = new Casilla[13][13];
         String[] columnas;
         int filas = 0;
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -32,13 +33,13 @@ public class Tablero {
                             break;
                         case 2:
                             tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getProta());
-                            gp.getProta().setCordX(i);
-                            gp.getProta().setCordY(filas);
+                            //gp.getProta().setCordX(i);
+                            //gp.getProta().setCordY(filas);
                             break;
                         case 3:
                             tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getEnemigo());
-                            gp.getEnemigo().setCordX(i);
-                            gp.getEnemigo().setCordY(filas);
+                            //gp.getEnemigo().setCordX(i);
+                            //gp.getEnemigo().setCordY(filas);
                             break;
                         default:
                         

@@ -10,6 +10,7 @@ public class Proveedor {
     private Proveedor() {
         this.gp = new GestorPersonajes();
         this.tab = new Tablero();
+        tab.LecturaInicioTablero(gp);
     }
     public static Proveedor getInstance() {
         if (instance == null) {
