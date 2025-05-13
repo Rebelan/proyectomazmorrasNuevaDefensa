@@ -1,8 +1,5 @@
 package com.alexander.controllers;
 
-import java.io.IOException;
-import java.security.Provider;
-import java.util.List;
 
 import com.alexander.App;
 import com.alexander.Interfaces.Observer;
@@ -10,6 +7,7 @@ import com.alexander.Model.Personaje;
 import com.alexander.Model.GestorPersonajes;
 import com.alexander.Model.Proveedor;
 import com.alexander.Model.Tablero;
+import com.alexander.Model.TipoCasilla;
 
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -26,7 +24,6 @@ public class Dungeon implements Observer {
 
     @FXML
     GridPane gridTablero;
-
     GestorPersonajes gp;
 
     @FXML
@@ -43,17 +40,29 @@ public class Dungeon implements Observer {
         col.setHgrow(Priority.ALWAYS);
         col.setHalignment(HPos.LEFT);
         gridTablero.getColumnConstraints().add(col);
-
+        generarMapa();
     }
 
-    public void generarLista(List<Personaje> personajes) {
+    public void generarMapa() {
+        Tablero tablero = new Tablero();
+        tablero.LecturaInicioTablero(gp);
+        tablero.getTablero();
+
         gridTablero.getChildren().clear();
-        int row = 0;
 
-        for (Personaje pj : personajes) {
-            gridTablero.add(gridTablero, 0, row);
+        Image camino = new Image(getClass().getResourceAsStream("data/SpriteCamino.jpg"));
+        Image muro = new Image(getClass().getResourceAsStream("data/SpriteMuro.png"));
+        ImageView iViewCamino = new ImageView(camino);
+        ImageView iViewMuro = new ImageView(muro);
 
-            row++;
+        for (int fila = 0; fila < tablero.getNFilas(); fila++) {
+            for (int col = 0; col < tablero.getNColumnas(); col++) {
+                if(tablero.getTipoCasilla(fila, col)==TipoCasilla.Pared) {
+                    gridTablero.add(iViewMuro, col, fila);
+                } else {
+                    gridTablero.add(iViewCamino, col, fila);
+                }
+            }
         }
 
     }
