@@ -4,6 +4,7 @@ import com.alexander.App;
 import com.alexander.Interfaces.Observer;
 import com.alexander.Model.Personaje;
 import com.alexander.Model.Protagonista;
+import com.alexander.Model.Enemigo;
 import com.alexander.Model.GestorPersonajes;
 import com.alexander.Model.Proveedor;
 import com.alexander.Model.Tablero;
@@ -88,28 +89,25 @@ public class Dungeon implements Observer {
     }
 
     public void GenerarMapaPersonajes() {
-        Tablero tableroEnemigos = new Tablero();
-        tableroEnemigos.LecturaInicioTablero(gp);
-        tableroEnemigos.getTablero();
+        Tablero tableroEnemigos = Proveedor.getInstance().getTab();
         gridTableroPersonajes.getChildren().clear();
 
-        Image enemigo = new Image(App.class.getResourceAsStream("data/enemigo.png"), 50, 50, false, false);
-        Image prota = new Image(App.class.getResourceAsStream("data/SpriteProta.png"), 50, 50, false, false);
+        Image enemigo = new Image(App.class.getResourceAsStream("/com/alexander/data/enemigo.png"), 50, 50, false, false);
+        Image prota = new Image(App.class.getResourceAsStream("/com/alexander/data/SpriteProta.png"), 50, 50, false, false);
 
         for (int fila = 0; fila < tableroEnemigos.getNFilas(); fila++) {
             for (int col = 0; col < tableroEnemigos.getNColumnas(); col++) {
                 if (tableroEnemigos.getTipoCasilla(fila, col) == TipoCasilla.Suelo) {
-                    if (tableroEnemigos.getPersonaje(col, fila) instanceof Protagonista) {
+                    Personaje personaje = tableroEnemigos.getPersonaje(fila, col);
+                    if (personaje instanceof Protagonista) {
                         gridTableroPersonajes.add(new ImageView(prota), col, fila);
-                    } else {
+                    } else if (personaje instanceof Enemigo) {
                         gridTableroPersonajes.add(new ImageView(enemigo), col, fila);
                     }
                 }
             }
         }
     }
-
-
 
     public void generarMapa() {
         Tablero tablero = new Tablero();
