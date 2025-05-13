@@ -13,10 +13,12 @@ import com.alexander.App;
 public class Tablero {
     private Casilla[][] tablero;
 
-    public void LecturaInicioTablero(GestorPersonajes gp) {
+    public Casilla[][] LecturaInicioTablero(GestorPersonajes gp) {
         String[] columnas;
         int filas = 0;
-         try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(App.class.getResource("data/tablero.DARKEST").toURI())), StandardCharsets.UTF_8))){
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                new FileInputStream(new File(App.class.getResource("data/tablero.DARKEST").toURI())),
+                StandardCharsets.UTF_8))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 columnas = linea.split(" ");
@@ -37,22 +39,24 @@ public class Tablero {
                             tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getEnemigo());
                             gp.getEnemigo().setCordX(i);
                             gp.getEnemigo().setCordY(filas);
-                            break; 
+                            break;
                         default:
-                        System.out.println("Error en el formato del tablero");
+                            System.out.println("Error en el formato del tablero");
                             break;
                     }
                 }
-               filas++;
-                
+                filas++;
+
             }
-         } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
+        return tablero;
     }
+
     public void actualizarCasilla(Personaje pj, int x, int y) {
         // Actualiza la casilla del personaje en el tablero
         if (tablero[x][y].getTipo() == TipoCasilla.Suelo && tablero[x][y].getPersonaje() == null) {
@@ -61,13 +65,27 @@ public class Tablero {
             pj.setCordX(x);
             pj.setCordY(y);
         }
-        
+
     }
+
     public TipoCasilla getTipoCasilla(int x, int y) {
         return tablero[x][y].getTipo();
     }
+
     public boolean EstaCasillaEstaVacia(int x, int y) {
         return tablero[x][y].getPersonaje() == null;
 
+    }
+
+    public int getNFilas(){
+        return tablero.length;
+    }
+
+    public int getNColumnas() {
+        return tablero[0].length;
+    }
+
+    public Casilla[][] getTablero() {
+        return tablero;
     }
 }

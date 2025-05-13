@@ -52,8 +52,8 @@ public class Protagonista extends Personaje {
     @Override
     public void moverse() {
         Proveedor p = Proveedor.getInstance();
-        int nuevaX=p.getP().getCordX();
-        int nuevaY=p.getP().getCordY();
+        int nuevaX = p.getP().getCordX();
+        int nuevaY = p.getP().getCordY();
         switch (direccion) {
             case ARRIBA:
                 nuevaX = p.getP().getCordX() - 1;
@@ -70,7 +70,8 @@ public class Protagonista extends Personaje {
             default:
                 break;
         }
-        if (p.getTab().EstaCasillaEstaVacia(nuevaX, nuevaY)&& p.getTab().getTipoCasilla(nuevaX, nuevaY)== TipoCasilla.Suelo) {
+        if (p.getTab().EstaCasillaEstaVacia(nuevaX, nuevaY)
+                && p.getTab().getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo) {
             p.getTab().actualizarCasilla(p.getP(), nuevaX, nuevaY);
             notifyObservers();
         }
