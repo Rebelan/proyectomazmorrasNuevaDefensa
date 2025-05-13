@@ -1,6 +1,5 @@
 package com.alexander.controllers;
 
-
 import com.alexander.App;
 import com.alexander.Interfaces.Observer;
 import com.alexander.Model.Personaje;
@@ -23,7 +22,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 
 public class Dungeon implements Observer {
-    
+
     @FXML
     Label Ltab;
 
@@ -39,53 +38,54 @@ public class Dungeon implements Observer {
     GestorPersonajes gp;
 
     @FXML
-public void initialize() {
-    gp = Proveedor.getInstance().getGp();
-    gp.subscribe(this);
+    public void initialize() {
+        gp = Proveedor.getInstance().getGp();
+        gp.subscribe(this);
 
-    gridTablero.setHgap(0); // Sin espaciado horizontal
-    gridTablero.setVgap(0); // Sin espaciado vertical
-    gridTablero.setPadding(Insets.EMPTY); // Sin relleno
-    gridTablero.setGridLinesVisible(false); // Opcional: Ocultar líneas de cuadrícula
+        gridTablero.setHgap(0); // Sin espaciado horizontal
+        gridTablero.setVgap(0); // Sin espaciado vertical
+        gridTablero.setPadding(Insets.EMPTY); // Sin relleno
+        gridTablero.setGridLinesVisible(false); // Opcional: Ocultar líneas de cuadrícula
 
-    Proveedor.getInstance().getTab().LecturaInicioTablero(gp);
-    int nFilas = Proveedor.getInstance().getTab().getNFilas();
-    int nColumnas = Proveedor.getInstance().getTab().getNColumnas();
+        Proveedor.getInstance().getTab().LecturaInicioTablero(gp);
+        int nFilas = Proveedor.getInstance().getTab().getNFilas();
+        int nColumnas = Proveedor.getInstance().getTab().getNColumnas();
 
-    gridTablero.getRowConstraints().clear();
-    gridTablero.getColumnConstraints().clear();
+        gridTablero.getRowConstraints().clear();
+        gridTablero.getColumnConstraints().clear();
 
-    for (int i = 0; i < nFilas; i++) {
-        RowConstraints row = new RowConstraints();
-        row.setMinHeight(30);
-        row.setPrefHeight(30);
-        row.setMaxHeight(30);
-        gridTablero.getRowConstraints().add(row);
+        for (int i = 0; i < nFilas; i++) {
+            RowConstraints row = new RowConstraints();
+            row.setMinHeight(30);
+            row.setPrefHeight(30);
+            row.setMaxHeight(30);
+            gridTablero.getRowConstraints().add(row);
+        }
+
+        for (int i = 0; i < nColumnas; i++) {
+            ColumnConstraints col = new ColumnConstraints();
+            col.setMinWidth(30);
+            col.setPrefWidth(30);
+            col.setMaxWidth(30);
+            gridTablero.getColumnConstraints().add(col);
+        }
+
+        generarMapa();
     }
 
-    for (int i = 0; i < nColumnas; i++) {
-        ColumnConstraints col = new ColumnConstraints();
-        col.setMinWidth(30);
-        col.setPrefWidth(30);
-        col.setMaxWidth(30);
-        gridTablero.getColumnConstraints().add(col);
-    }
-
-    generarMapa();
-}
-    public void GenerarMapaPersonajes(){
+    public void GenerarMapaPersonajes() {
         Tablero tableroEnemigos = new Tablero();
         tableroEnemigos.LecturaInicioTablero(gp);
         tableroEnemigos.getTablero();
         gridTableroPersonajes.getChildren().clear();
 
-        Image enemigo = new Image(App.class.getResourceAsStream("data/enemigo.png"),50,50,false,false);
-        Image prota = new Image(App.class.getResourceAsStream("data/prota.png"),50,50,false,false);
+        Image enemigo = new Image(App.class.getResourceAsStream("data/enemigo.png"), 50, 50, false, false);
+        Image prota = new Image(App.class.getResourceAsStream("data/prota.png"), 50, 50, false, false);
 
         for (int fila = 0; fila < tableroEnemigos.getNFilas(); fila++) {
             for (int col = 0; col < tableroEnemigos.getNColumnas(); col++) {
-                if(tableroEnemigos.getTipoCasilla(fila, col)==TipoCasilla.Suelo) {
-                    if(tableroEnemigos.getPersonaje(col, fila) instanceof Protagonista) {
+                if (tableroEnemigos.getTipoCasilla(fila, col) == TipoCasilla.Suelo) {
+                    if (tableroEnemigos.getPersonaje(col, fila) instanceof Protagonista) {
                         gridTableroPersonajes.add(new ImageView(prota), col, fila);
                     } else {
                         gridTableroPersonajes.add(new ImageView(enemigo), col, fila);
@@ -93,6 +93,10 @@ public void initialize() {
                 }
             }
         }
+    }
+
+    public void generarStackPane() {
+        stackPane.getChildren().clear();
         
     }
 
@@ -103,24 +107,23 @@ public void initialize() {
 
         gridTablero.getChildren().clear();
 
-        Image camino = new Image(App.class.getResourceAsStream("data/SpriteCamino.jpg"),50,50,false,false);
-        Image muro = new Image(App.class.getResourceAsStream("data/SpriteMuro.png"),50,50,false,false);
+        Image camino = new Image(App.class.getResourceAsStream("data/SpriteCamino.jpg"), 50, 50, false, false);
+        Image muro = new Image(App.class.getResourceAsStream("data/SpriteMuro.png"), 50, 50, false, false);
 
         for (int fila = 0; fila < tablero.getNFilas(); fila++) {
             for (int col = 0; col < tablero.getNColumnas(); col++) {
-                if(tablero.getTipoCasilla(fila, col)==TipoCasilla.Pared) {
+                if (tablero.getTipoCasilla(fila, col) == TipoCasilla.Pared) {
                     gridTablero.add(new ImageView(muro), col, fila);
                 } else {
                     gridTablero.add(new ImageView(camino), col, fila);
                 }
             }
         }
-
     }
 
     @Override
     public void onChange() {
-        
+
     }
 
 }
