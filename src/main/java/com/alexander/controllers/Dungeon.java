@@ -47,12 +47,19 @@ public class Dungeon implements Observer {
         gridTablero.setPadding(Insets.EMPTY); // Sin relleno
         gridTablero.setGridLinesVisible(false); // Opcional: Ocultar líneas de cuadrícula
 
+        gridTableroPersonajes.setHgap(0); // Sin espaciado horizontal
+        gridTableroPersonajes.setVgap(0); // Sin espaciado vertical
+        gridTableroPersonajes.setPadding(Insets.EMPTY); // Sin relleno
+        gridTableroPersonajes.setGridLinesVisible(false); // Opcional: Ocultar líneas de cuadrícula
+
         Proveedor.getInstance().getTab().LecturaInicioTablero(gp);
         int nFilas = Proveedor.getInstance().getTab().getNFilas();
         int nColumnas = Proveedor.getInstance().getTab().getNColumnas();
 
         gridTablero.getRowConstraints().clear();
         gridTablero.getColumnConstraints().clear();
+        gridTableroPersonajes.getRowConstraints().clear();
+        gridTableroPersonajes.getColumnConstraints().clear();
 
         for (int i = 0; i < nFilas; i++) {
             RowConstraints row = new RowConstraints();
@@ -60,6 +67,7 @@ public class Dungeon implements Observer {
             row.setPrefHeight(30);
             row.setMaxHeight(30);
             gridTablero.getRowConstraints().add(row);
+            gridTableroPersonajes.getRowConstraints().add(row); // Asegurar que ambos GridPane tengan las mismas filas
         }
 
         for (int i = 0; i < nColumnas; i++) {
@@ -68,9 +76,15 @@ public class Dungeon implements Observer {
             col.setPrefWidth(30);
             col.setMaxWidth(30);
             gridTablero.getColumnConstraints().add(col);
+            gridTableroPersonajes.getColumnConstraints().add(col); // Asegurar que ambos GridPane tengan las mismas columnas
         }
 
+        stackPane.getChildren().clear(); // Limpiar el StackPane antes de agregar nuevos elementos  
+        // Agregar ambos GridPane al StackPane
+        stackPane.getChildren().addAll(gridTablero, gridTableroPersonajes);
+
         generarMapa();
+        GenerarMapaPersonajes();
     }
 
     public void GenerarMapaPersonajes() {
@@ -80,7 +94,7 @@ public class Dungeon implements Observer {
         gridTableroPersonajes.getChildren().clear();
 
         Image enemigo = new Image(App.class.getResourceAsStream("data/enemigo.png"), 50, 50, false, false);
-        Image prota = new Image(App.class.getResourceAsStream("data/prota.png"), 50, 50, false, false);
+        Image prota = new Image(App.class.getResourceAsStream("data/SpriteProta.png"), 50, 50, false, false);
 
         for (int fila = 0; fila < tableroEnemigos.getNFilas(); fila++) {
             for (int col = 0; col < tableroEnemigos.getNColumnas(); col++) {
@@ -95,10 +109,7 @@ public class Dungeon implements Observer {
         }
     }
 
-    public void generarStackPane() {
-        stackPane.getChildren().clear();
-        
-    }
+
 
     public void generarMapa() {
         Tablero tablero = new Tablero();
