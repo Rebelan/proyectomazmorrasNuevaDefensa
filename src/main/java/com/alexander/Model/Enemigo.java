@@ -63,12 +63,16 @@ public class Enemigo extends Personaje {
         boolean seguir = true;
         float Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY(), prota.getCordX(),
                 prota.getCordY());
+        int nuevaX = enemigo.getCordX();
+        int nuevaY = enemigo.getCordY();
         if (Calculo1 <= enemigo.getPercepcion()) {
             if (tab.getTipoCasilla(enemigo.getCordX() - 1, enemigo.getCordY()) != TipoCasilla.Pared) {
                 if (Calculo1 < enemigo.CalculoAlgoritmo(enemigo.getCordX() - 1, enemigo.getCordY(), prota.getCordX(),
                         prota.getCordY())) {
                     Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX() - 1, enemigo.getCordY(), prota.getCordX(),
                             prota.getCordY());
+                            nuevaX = enemigo.getCordX() - 1;
+                            nuevaY = enemigo.getCordY();
                 }
             }
             if (tab.getTipoCasilla(enemigo.getCordX() + 1, enemigo.getCordY()) != TipoCasilla.Pared) {
@@ -76,6 +80,8 @@ public class Enemigo extends Personaje {
                         prota.getCordY())) {
                     Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX() + 1, enemigo.getCordY(), prota.getCordX(),
                             prota.getCordY());
+                    nuevaX = enemigo.getCordX() + 1;
+                    nuevaY = enemigo.getCordY();
                 }
             }
             if (tab.getTipoCasilla(enemigo.getCordX(), enemigo.getCordY() - 1) != TipoCasilla.Pared) {
@@ -83,6 +89,8 @@ public class Enemigo extends Personaje {
                         prota.getCordY())) {
                     Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY() - 1, prota.getCordX(),
                             prota.getCordY());
+                    nuevaX = enemigo.getCordX();
+                    nuevaY = enemigo.getCordY() - 1;
                 }
             }
             if (tab.getTipoCasilla(enemigo.getCordX(), enemigo.getCordY() + 1) != TipoCasilla.Pared) {
@@ -90,12 +98,22 @@ public class Enemigo extends Personaje {
                         prota.getCordY())) {
                     Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY() + 1, prota.getCordX(),
                             prota.getCordY());
+                    nuevaX = enemigo.getCordX();
+                    nuevaY = enemigo.getCordY() + 1;
                 }
+            }
+            if (tab.EstaCasillaEstaVacia(nuevaX, nuevaY)
+                    && tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo) {
+                tab.actualizarCasilla(null, enemigo.getCordX(), enemigo.getCordY());
+                enemigo.setCordX(nuevaX);
+                enemigo.setCordY(nuevaY);
+                tab.actualizarCasilla(enemigo, nuevaX, nuevaY);
+                seguir = false;
+                enemigo.notifyObservers();
             }
 
         } else {
-            int nuevaX = enemigo.getCordX();
-            int nuevaY = enemigo.getCordY();
+            
             while (seguir) {
                 int opRandom = r.nextInt(4);
                 switch (opRandom) {
@@ -123,6 +141,7 @@ public class Enemigo extends Personaje {
                     tab.actualizarCasilla(enemigo, nuevaX, nuevaY);
                     seguir = false;
                     enemigo.notifyObservers();
+                    
                 }
 
             }
