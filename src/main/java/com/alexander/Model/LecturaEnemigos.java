@@ -12,7 +12,11 @@ import java.util.ArrayList;
 import com.alexander.App;
 
 public class LecturaEnemigos {
-
+    /**
+     * Método para leer los enemigos desde un archivo CSV.
+     * 
+     * @return ArrayList de enemigos leídos del archivo.
+     */
     public static ArrayList<Personaje> leerEnemigos() {
         ArrayList<Personaje> enemigos = new ArrayList<>();
 

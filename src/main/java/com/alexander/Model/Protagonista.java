@@ -9,37 +9,71 @@ public class Protagonista extends Personaje {
     TipoMov direccion;
     ArrayList<Observer> observers;
 
+    /**
+     * Constructor de Protagonista.
+     * 
+     * @param velocidad   Velocidad del protagonista.
+     * @param vitalidad   Vitalidad del protagonista.
+     * @param fuerza      Fuerza del protagonista.
+     * @param nombreProta Nombre del protagonista.
+     */
     public Protagonista(int velocidad, int vitalidad, int fuerza, String nombreProta) {
         super(velocidad, vitalidad, fuerza);
         this.nombreProta = nombreProta;
         // Inicializar la lista de observadores en el constructor
         this.observers = new ArrayList<>();
     }
-
+    /**
+     * Método para suscribir un observador.
+     * 
+     * @param observer Observador a suscribir.
+     */
     public void subscribe(Observer observer) {
         observers.add(observer);
     }
-
+    /**
+     * Método para eliminar un observador.
+     * 
+     * @param observer Observador a eliminar.
+     */
     public void unsubscribe(Observer observer) {
         observers.remove(observer);
     }
-
+    /**
+     * Método para notificar a los observadores.
+     */
     public void notifyObservers() {
         observers.forEach(item -> item.onChange());
     }
-
+    /**
+     * Método para obtener el nombre del protagonista.
+     * 
+     * @return Nombre del protagonista.
+     */
     public String getNombreProta() {
         return this.nombreProta;
     }
-
+    /**
+     * Método para establecer el nombre del protagonista.
+     * 
+     * @param nombreProta Nombre a establecer.
+     */
     public void setNombreProta(String nombreProta) {
         this.nombreProta = nombreProta;
     }
-
+    /**
+     * Método para obtener la dirección del protagonista.
+     * 
+     * @return Dirección del protagonista.
+     */
     public TipoMov getDireccion() {
         return this.direccion;
     }
-
+    /**
+     * Método para establecer la dirección del protagonista.
+     * 
+     * @param direccion Dirección a establecer.
+     */
     public void setDireccion(TipoMov direccion) {
         this.direccion = direccion;
     }
@@ -52,6 +86,9 @@ public class Protagonista extends Personaje {
     }
 
     @Override
+    /**
+ * Lógica de movimiento del protagonista.
+ */
     public void moverse() {
         Proveedor p = Proveedor.getInstance();
         int nuevaX = p.getP().getCordX();

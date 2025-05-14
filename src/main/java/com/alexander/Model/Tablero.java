@@ -13,7 +13,12 @@ import com.alexander.App;
 public class Tablero {
     private Casilla[][] tablero;
 
-
+    /**
+     * Lee el archivo de inicio y genera el tablero.
+     * 
+     * @param gp Gestor de personajes.
+     * @return Matriz de casillas del tablero.
+     */
     public Casilla[][] LecturaInicioTablero(GestorPersonajes gp) {
         tablero = new Casilla[13][13];
         String[] columnas;
@@ -39,7 +44,8 @@ public class Tablero {
                         case 2:
                             // Validar que el protagonista esté inicializado antes de usarlo
                             if (gp.getProta() == null) {
-                                throw new IllegalStateException("El protagonista no está inicializado en GestorPersonajes.");
+                                throw new IllegalStateException(
+                                        "El protagonista no está inicializado en GestorPersonajes.");
                             }
                             tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getProta());
                             gp.getProta().setCordX(i);
@@ -51,7 +57,7 @@ public class Tablero {
                             gp.getEnemigo().setCordY(filas);
                             break;
                         default:
-                        
+
                             break;
                     }
                 }
@@ -61,12 +67,19 @@ public class Tablero {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e1) {
-          
+
             e1.printStackTrace();
         }
         return tablero;
     }
 
+    /**
+     * Actualiza la casilla con el personaje dado.
+     * 
+     * @param pj Personaje a colocar.
+     * @param x  Coordenada X.
+     * @param y  Coordenada Y.
+     */
     public void actualizarCasilla(Personaje pj, int x, int y) {
         // Validar que las coordenadas estén dentro de los límites del tablero
         if (x < 0 || x >= tablero.length || y < 0 || y >= tablero[0].length) {
@@ -88,28 +101,50 @@ public class Tablero {
             pj.setCordY(y);
         }
     }
-
+    /**
+     * Obtiene el tipo de casilla en las coordenadas dadas.
+     * 
+     * @param x Coordenada X.
+     * @param y Coordenada Y.
+     * @return Tipo de casilla.
+     */
     public TipoCasilla getTipoCasilla(int x, int y) {
         return tablero[x][y].getTipo();
     }
-
+    /**
+     * Obtiene el personaje en las coordenadas dadas.
+     * 
+     * @param x Coordenada X.
+     * @param y Coordenada Y.
+     * @return Personaje en la casilla.
+     */
     public Personaje getPersonaje(int x, int y) {
         return tablero[x][y].getPersonaje();
     }
-
+    /**
+     * Verifica si la casilla está vacía.
+     * 
+     * @param x Coordenada X.
+     * @param y Coordenada Y.
+     * @return true si la casilla está vacía, false en caso contrario.
+     */
     public boolean EstaCasillaEstaVacia(int x, int y) {
         return tablero[x][y].getPersonaje() == null;
 
     }
-
-    public int getNFilas(){
+    
+    public int getNFilas() {
         return tablero.length;
     }
-
+    
     public int getNColumnas() {
         return tablero[0].length;
     }
-
+    /**
+     * Método para obtener el tablero.
+     * 
+     * @return Tablero.
+     */
     public Casilla[][] getTablero() {
         return tablero;
     }

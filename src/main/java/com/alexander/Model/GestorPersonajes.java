@@ -11,10 +11,18 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
     ArrayList<Personaje> personajes;
     ArrayList<Observer> observers;
 
+    /**
+     * Suscribe un observer.
+     * 
+     * @param observer Observer a suscribir.
+     */
     public void subscribe(Observer observer) {
         observers.add(observer);
     }
-
+    /**
+     * Elimina un observer.
+     * @param observer Observer a eliminar.
+     */
     public void unsubscribe(Observer observer) {
         observers.remove(observer);
     }
@@ -22,7 +30,10 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
     public void notifyObservers() {
         observers.forEach(item -> item.onChange());
     }
-
+    /**
+     * Constructor de GestorPersonajes.
+     * @param prota Protagonista principal.
+     */
     public GestorPersonajes(Protagonista prota) {
         this.personajes = LecturaEnemigos.leerEnemigos();
         this.prota = prota;
@@ -35,26 +46,48 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
             }
         }
     }
-
+    /**
+     * Método para insertar un personaje en el gestor.
+     * 
+     * @param e Personaje a insertar.
+     */
     public void insertarPersonaje(Personaje e) {
         this.personajes.add(e);
         notifyObservers();
     }
-
+    /**
+     * Método para eliminar un personaje del gestor.
+     * 
+     * @param e Personaje a eliminar
+     */
     public void eliminarEnemigo(Personaje e) {
         this.personajes.remove(e);
         notifyObservers();
     }
-
+    /**
+     * Método para obtener el personaje por su nombre.
+     * 
+     * @param nombre Nombre del personaje a buscar.
+     * @return Personaje encontrado o null si no se encuentra.
+     */
     public List<Personaje> getNombrePersonaje() {
         return this.personajes;
     }
-
+    /**
+     * Método para obtener el protagonista.
+     * 
+     * @return Protagonista.
+     */
     public Protagonista getProta() {
         return prota;
     }
 
     // Método para inicializar el protagonista
+    /**
+     * Método para establecer el protagonista.
+     * 
+     * @param prota Protagonista a establecer.
+     */
     public void setProta(Protagonista prota) {
         this.prota = prota;
         // Suscribir todos los enemigos al protagonista
@@ -64,12 +97,16 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
             }
         }
     }
-
+    /**
+     * Método para obtener un enemigo aleatorio.
+     * 
+     * @return Enemigo aleatorio.
+     */
     public Enemigo getEnemigo() {
-        Random  random = new Random();
+        Random random = new Random();
         return (Enemigo) personajes.get(random.nextInt(personajes.size()));
     }
-    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -78,6 +115,11 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
         }
         return sb.toString();
     }
+    /**
+     * Método para obtener la lista de personajes.
+     * 
+     * @return Lista de personajes.
+     */
     public void ordenarPersonajes() {
         // ordenamos el arraylist de personajes por velocidad
         // de mayor a menor
@@ -85,8 +127,17 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
     }
 
     @Override
+    /**
+     * Método para comparar dos gestores de personajes por la velocidad del
+     * protagonista.
+     * 
+     * @param o GestorPersonajes a comparar.
+     * @return -1 si el protagonista es más rápido, 1 si es más lento, 0 si son
+     *         iguales.
+     */
     public int compareTo(GestorPersonajes o) {
-        // comparamos velocidad de los personajes para ordenar el arraylist de mayor a menor
+        // comparamos velocidad de los personajes para ordenar el arraylist de mayor a
+        // menor
         if (this.prota.getVelocidad() > o.prota.getVelocidad()) {
             return -1;
         } else if (this.prota.getVelocidad() < o.prota.getVelocidad()) {
@@ -95,6 +146,5 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
             return 0;
         }
     }
-    
 
 }

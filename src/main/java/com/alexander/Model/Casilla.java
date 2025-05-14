@@ -4,6 +4,7 @@ public class Casilla {
     private TipoCasilla tipo;
     private Personaje personaje;
 
+    
     public Casilla(TipoCasilla tipo, Personaje personaje){
         this.tipo = tipo;
         this.personaje = personaje;
