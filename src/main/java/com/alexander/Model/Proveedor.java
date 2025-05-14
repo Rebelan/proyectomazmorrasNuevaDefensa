@@ -10,6 +10,9 @@ public class Proveedor {
     private Proveedor() {
         this.gp = new GestorPersonajes();
         this.tab = new Tablero();
+        // Crear y asignar el protagonista con valores predeterminados
+        this.p = new Protagonista(10, 100, 15, "Héroe");
+        gp.setProta(p);
         tab.LecturaInicioTablero(gp);
     }
     public static Proveedor getInstance() {

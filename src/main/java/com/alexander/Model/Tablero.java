@@ -18,6 +18,10 @@ public class Tablero {
         tablero = new Casilla[13][13];
         String[] columnas;
         int filas = 0;
+        // Verificar si el protagonista está inicializado antes de usarlo
+        if (gp.getProta() == null) {
+            throw new IllegalStateException("El protagonista no está inicializado en GestorPersonajes.");
+        }
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
                 new FileInputStream(new File(App.class.getResource("data/tablero.DARKEST").toURI())),
                 StandardCharsets.UTF_8))) {
@@ -33,14 +37,18 @@ public class Tablero {
                             tablero[filas][i] = new Casilla(TipoCasilla.Pared, null);
                             break;
                         case 2:
+                            // Validar que el protagonista esté inicializado antes de usarlo
+                            if (gp.getProta() == null) {
+                                throw new IllegalStateException("El protagonista no está inicializado en GestorPersonajes.");
+                            }
                             tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getProta());
-                            //gp.getProta().setCordX(i);
-                            //gp.getProta().setCordY(filas);
+                            gp.getProta().setCordX(i);
+                            gp.getProta().setCordY(filas);
                             break;
                         case 3:
                             tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getEnemigo());
-                            //gp.getEnemigo().setCordX(i);
-                            //gp.getEnemigo().setCordY(filas);
+                            gp.getEnemigo().setCordX(i);
+                            gp.getEnemigo().setCordY(filas);
                             break;
                         default:
                         

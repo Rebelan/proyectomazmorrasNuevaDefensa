@@ -7,7 +7,7 @@ import java.util.Random;
 import com.alexander.Interfaces.Observer;
 
 public class GestorPersonajes implements Comparable<GestorPersonajes> {
-    Protagonista prota;
+    private Protagonista prota;
     ArrayList<Personaje> personajes;
     ArrayList<Observer> observers;
 
@@ -45,6 +45,12 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
     public Protagonista getProta() {
         return prota;
     }
+
+    // Método para inicializar el protagonista
+    public void setProta(Protagonista prota) {
+        this.prota = prota;
+    }
+
     public Enemigo getEnemigo() {
         Random  random = new Random();
         return (Enemigo) personajes.get(random.nextInt(personajes.size()));
