@@ -9,5 +9,6 @@ module com.alexander {
     opens com.alexander.controllers to javafx.fxml;
     exports com.alexander.Model;
     opens com.alexander.Model to javafx.fxml;
+    exports com.alexander.Interfaces;
     
 }

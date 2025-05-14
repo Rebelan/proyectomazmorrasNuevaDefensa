@@ -23,9 +23,17 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
         observers.forEach(item -> item.onChange());
     }
 
-    public GestorPersonajes() {
+    public GestorPersonajes(Protagonista prota) {
         this.personajes = LecturaEnemigos.leerEnemigos();
-        observers = new ArrayList<>();
+        this.prota = prota;
+        this.observers = new ArrayList<>();
+
+        // Suscribir enemigos al protagonista
+        for (Personaje personaje : personajes) {
+            if (personaje instanceof Enemigo) {
+                prota.subscribe((Observer) personaje);
+            }
+        }
     }
 
     public void insertarPersonaje(Personaje e) {
@@ -49,6 +57,12 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
     // Método para inicializar el protagonista
     public void setProta(Protagonista prota) {
         this.prota = prota;
+        // Suscribir todos los enemigos al protagonista
+        for (Personaje personaje : this.personajes) {
+            if (personaje instanceof Enemigo) {
+                prota.subscribe((Observer) personaje);
+            }
+        }
     }
 
     public Enemigo getEnemigo() {

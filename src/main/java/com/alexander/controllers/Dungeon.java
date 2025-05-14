@@ -9,16 +9,15 @@ import com.alexander.Model.GestorPersonajes;
 import com.alexander.Model.Proveedor;
 import com.alexander.Model.Tablero;
 import com.alexander.Model.TipoCasilla;
+import com.alexander.Model.TipoMov;
 
 import javafx.fxml.FXML;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 
@@ -77,15 +76,48 @@ public class Dungeon implements Observer {
             col.setPrefWidth(30);
             col.setMaxWidth(30);
             gridTablero.getColumnConstraints().add(col);
-            gridTableroPersonajes.getColumnConstraints().add(col); // Asegurar que ambos GridPane tengan las mismas columnas
+            gridTableroPersonajes.getColumnConstraints().add(col); // Asegurarse de que ambos GridPane tengan las mismas columnas
         }
 
-        stackPane.getChildren().clear(); // Limpiar el StackPane antes de agregar nuevos elementos  
+        // limpieza del StackPane antes de agregar nuevos elementos
+        stackPane.getChildren().clear();   
+        
         // Agregar ambos GridPane al StackPane
         stackPane.getChildren().addAll(gridTablero, gridTableroPersonajes);
 
         generarMapa();
         GenerarMapaPersonajes();
+
+        // Configurar eventos de teclado para mover al protagonista
+        stackPane.setOnKeyPressed(event -> {
+            Protagonista prota = (Protagonista) Proveedor.getInstance().getP();
+            switch (event.getCode()) {
+                case W:
+                case UP:
+                    prota.setDireccion(TipoMov.ARRIBA);
+                    break;
+                case S:
+                case DOWN:
+                    prota.setDireccion(TipoMov.ABAJO);
+                    break;
+                case A:
+                case LEFT:
+                    prota.setDireccion(TipoMov.IZQUIERDA);
+                    break;
+                case D:
+                case RIGHT:
+                    prota.setDireccion(TipoMov.DERECHA);
+                    break;
+                default:
+                    return;
+            }
+            prota.moverse();
+            GenerarMapaPersonajes(); // Actualizar la visualización del tablero
+        });
+
+        // Asegurarse de que el StackPane tenga el foco para capturar eventos de teclado
+        stackPane.setFocusTraversable(true);
+        stackPane.requestFocus();
     }
 
     public void GenerarMapaPersonajes() {

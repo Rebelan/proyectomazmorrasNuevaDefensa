@@ -3,7 +3,6 @@ package com.alexander;
 import java.io.IOException;
 import java.util.HashMap;
 
-import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -49,6 +48,7 @@ public class SceneManager {
             Parent root = loader.load();
             Scene scene = new Scene(root, screenWidth*0.7, screenHeight*0.7);
             scenes.put(sceneID, scene); 
+            System.out.println("Escena " + fxml + " configurada correctamente con ID: " + sceneID);
         } catch (IOException e) {
             e.printStackTrace(); 
         }

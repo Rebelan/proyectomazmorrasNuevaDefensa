@@ -68,6 +68,18 @@ public class Tablero {
     }
 
     public void actualizarCasilla(Personaje pj, int x, int y) {
+        // Validar que las coordenadas estén dentro de los límites del tablero
+        if (x < 0 || x >= tablero.length || y < 0 || y >= tablero[0].length) {
+            System.err.println("Error: Coordenadas fuera de los límites del tablero.");
+            return;
+        }
+
+        // Si pj es null, limpia la casilla
+        if (pj == null) {
+            tablero[x][y].setPersonaje(null);
+            return;
+        }
+
         // Actualiza la casilla del personaje en el tablero
         if (tablero[x][y].getTipo() == TipoCasilla.Suelo && tablero[x][y].getPersonaje() == null) {
             tablero[pj.getCordX()][pj.getCordY()].setPersonaje(null);
@@ -75,7 +87,6 @@ public class Tablero {
             pj.setCordX(x);
             pj.setCordY(y);
         }
-
     }
 
     public TipoCasilla getTipoCasilla(int x, int y) {
@@ -101,5 +112,13 @@ public class Tablero {
 
     public Casilla[][] getTablero() {
         return tablero;
+    }
+
+    public int getAncho() {
+        return tablero.length > 0 ? tablero[0].length : 0;
+    }
+
+    public int getAlto() {
+        return tablero.length;
     }
 }

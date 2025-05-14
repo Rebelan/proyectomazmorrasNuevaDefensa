@@ -12,6 +12,8 @@ public class Protagonista extends Personaje {
     public Protagonista(int velocidad, int vitalidad, int fuerza, String nombreProta) {
         super(velocidad, vitalidad, fuerza);
         this.nombreProta = nombreProta;
+        // Inicializar la lista de observadores en el constructor
+        this.observers = new ArrayList<>();
     }
 
     public void subscribe(Observer observer) {
@@ -70,10 +72,24 @@ public class Protagonista extends Personaje {
             default:
                 break;
         }
+        System.out.println("Intentando mover al protagonista a: (" + nuevaX + ", " + nuevaY + ")");
         if (p.getTab().EstaCasillaEstaVacia(nuevaX, nuevaY)
                 && p.getTab().getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo) {
+            if (p.getP() == null) {
+                System.err.println("Error: El protagonista no está inicializado.");
+                return;
+            }
+
+            System.out.println("Movimiento válido. Actualizando posición del protagonista.");
             p.getTab().actualizarCasilla(p.getP(), nuevaX, nuevaY);
             notifyObservers();
+
+            // Mover a los enemigos después de mover al protagonista
+            for (Personaje personaje : p.getGp().getNombrePersonaje()) {
+                if (personaje instanceof Enemigo) {
+                    personaje.moverse();
+                }
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 
 import com.alexander.Interfaces.Observer;
 
-public class Enemigo extends Personaje {
+public class Enemigo extends Personaje implements Observer {
     private String nombreEnemigo;
     private int percepcion;
     ArrayList<Observer> observers;
@@ -14,6 +14,7 @@ public class Enemigo extends Personaje {
         super(velocidad, vitalidad, fuerza);
         this.nombreEnemigo = nombreEnemigo;
         this.percepcion = percepcion;
+        this.observers = new ArrayList<>(); // Inicialización de la lista de observers
     }
 
     public void subscribe(Observer observer) {
@@ -52,101 +53,102 @@ public class Enemigo extends Personaje {
                 ", percepcion='" + getPercepcion() + "'";
     }
 
-
     @Override
     public void moverse() {
         Random r = new Random();
         Proveedor p = Proveedor.getInstance();
         Tablero tab = p.getTab();
         Protagonista prota = p.getP();
-        Enemigo enemigo = p.getE();
+
         boolean seguir = true;
-        float Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY(), prota.getCordX(),
+        float Calculo1 = this.CalculoAlgoritmo(this.getCordX(), this.getCordY(), prota.getCordX(),
                 prota.getCordY());
-        int nuevaX = enemigo.getCordX();
-        int nuevaY = enemigo.getCordY();
-        if (Calculo1 <= enemigo.getPercepcion()) {
-            if (tab.getTipoCasilla(enemigo.getCordX() - 1, enemigo.getCordY()) != TipoCasilla.Pared) {
-                if (Calculo1 < enemigo.CalculoAlgoritmo(enemigo.getCordX() - 1, enemigo.getCordY(), prota.getCordX(),
-                        prota.getCordY())) {
-                    Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX() - 1, enemigo.getCordY(), prota.getCordX(),
-                            prota.getCordY());
-                            nuevaX = enemigo.getCordX() - 1;
-                            nuevaY = enemigo.getCordY();
+        int nuevaX = this.getCordX();
+        int nuevaY = this.getCordY();
+
+        if (Calculo1 <= this.getPercepcion()) {
+            if (this.getCordX() - 1 >= 0 && this.getCordX() - 1 < tab.getAncho() && this.getCordY() >= 0 && this.getCordY() < tab.getAlto()) {
+                if (tab.getTipoCasilla(this.getCordX() - 1, this.getCordY()) != TipoCasilla.Pared) {
+                    if (Calculo1 < this.CalculoAlgoritmo(this.getCordX() - 1, this.getCordY(), prota.getCordX(),
+                            prota.getCordY())) {
+                        Calculo1 = this.CalculoAlgoritmo(this.getCordX() - 1, this.getCordY(), prota.getCordX(),
+                                prota.getCordY());
+                        nuevaX = this.getCordX() - 1;
+                        nuevaY = this.getCordY();
+                    }
                 }
             }
-            if (tab.getTipoCasilla(enemigo.getCordX() + 1, enemigo.getCordY()) != TipoCasilla.Pared) {
-                if (Calculo1 < enemigo.CalculoAlgoritmo(enemigo.getCordX() + 1, enemigo.getCordY(), prota.getCordX(),
-                        prota.getCordY())) {
-                    Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX() + 1, enemigo.getCordY(), prota.getCordX(),
-                            prota.getCordY());
-                    nuevaX = enemigo.getCordX() + 1;
-                    nuevaY = enemigo.getCordY();
+            // Validar otras direcciones
+            if (this.getCordX() + 1 >= 0 && this.getCordX() + 1 < tab.getAncho() && this.getCordY() >= 0 && this.getCordY() < tab.getAlto()) {
+                if (tab.getTipoCasilla(this.getCordX() + 1, this.getCordY()) != TipoCasilla.Pared) {
+                    if (Calculo1 < this.CalculoAlgoritmo(this.getCordX() + 1, this.getCordY(), prota.getCordX(), prota.getCordY())) {
+                        Calculo1 = this.CalculoAlgoritmo(this.getCordX() + 1, this.getCordY(), prota.getCordX(), prota.getCordY());
+                        nuevaX = this.getCordX() + 1;
+                        nuevaY = this.getCordY();
+                    }
                 }
             }
-            if (tab.getTipoCasilla(enemigo.getCordX(), enemigo.getCordY() - 1) != TipoCasilla.Pared) {
-                if (Calculo1 < enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY() - 1, prota.getCordX(),
-                        prota.getCordY())) {
-                    Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY() - 1, prota.getCordX(),
-                            prota.getCordY());
-                    nuevaX = enemigo.getCordX();
-                    nuevaY = enemigo.getCordY() - 1;
+            if (this.getCordX() >= 0 && this.getCordX() < tab.getAncho() && this.getCordY() - 1 >= 0 && this.getCordY() - 1 < tab.getAlto()) {
+                if (tab.getTipoCasilla(this.getCordX(), this.getCordY() - 1) != TipoCasilla.Pared) {
+                    if (Calculo1 < this.CalculoAlgoritmo(this.getCordX(), this.getCordY() - 1, prota.getCordX(), prota.getCordY())) {
+                        Calculo1 = this.CalculoAlgoritmo(this.getCordX(), this.getCordY() - 1, prota.getCordX(), prota.getCordY());
+                        nuevaX = this.getCordX();
+                        nuevaY = this.getCordY() - 1;
+                    }
                 }
             }
-            if (tab.getTipoCasilla(enemigo.getCordX(), enemigo.getCordY() + 1) != TipoCasilla.Pared) {
-                if (Calculo1 < enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY() + 1, prota.getCordX(),
-                        prota.getCordY())) {
-                    Calculo1 = enemigo.CalculoAlgoritmo(enemigo.getCordX(), enemigo.getCordY() + 1, prota.getCordX(),
-                            prota.getCordY());
-                    nuevaX = enemigo.getCordX();
-                    nuevaY = enemigo.getCordY() + 1;
+            if (this.getCordX() >= 0 && this.getCordX() < tab.getAncho() && this.getCordY() + 1 >= 0 && this.getCordY() + 1 < tab.getAlto()) {
+                if (tab.getTipoCasilla(this.getCordX(), this.getCordY() + 1) != TipoCasilla.Pared) {
+                    if (Calculo1 < this.CalculoAlgoritmo(this.getCordX(), this.getCordY() + 1, prota.getCordX(), prota.getCordY())) {
+                        Calculo1 = this.CalculoAlgoritmo(this.getCordX(), this.getCordY() + 1, prota.getCordX(), prota.getCordY());
+                        nuevaX = this.getCordX();
+                        nuevaY = this.getCordY() + 1;
+                    }
                 }
-            }
-            if (tab.EstaCasillaEstaVacia(nuevaX, nuevaY)
-                    && tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo) {
-                tab.actualizarCasilla(null, enemigo.getCordX(), enemigo.getCordY());
-                enemigo.setCordX(nuevaX);
-                enemigo.setCordY(nuevaY);
-                tab.actualizarCasilla(enemigo, nuevaX, nuevaY);
-                seguir = false;
-                enemigo.notifyObservers();
             }
 
+            // Actualizar posición del enemigo
+            tab.actualizarCasilla(this, nuevaX, nuevaY);
         } else {
-            
             while (seguir) {
                 int opRandom = r.nextInt(4);
                 switch (opRandom) {
-                    case 0: // Arriba:
-                        nuevaX = nuevaX - 1;
+                    case 0: // Arriba
+                        nuevaX = this.getCordX() - 1;
+                        nuevaY = this.getCordY();
                         break;
-                    case 1:// Abajo:
-                        nuevaX = nuevaX + 1;
+                    case 1: // Abajo
+                        nuevaX = this.getCordX() + 1;
+                        nuevaY = this.getCordY();
                         break;
-                    case 2:// Izquierda:
-                        nuevaY = nuevaY - 1;
+                    case 2: // Izquierda
+                        nuevaX = this.getCordX();
+                        nuevaY = this.getCordY() - 1;
                         break;
-                    case 3:// Derecha
-                        nuevaY = nuevaY + 1;
-                        break;
-
-                    default:
+                    case 3: // Derecha
+                        nuevaX = this.getCordX();
+                        nuevaY = this.getCordY() + 1;
                         break;
                 }
-                if (tab.EstaCasillaEstaVacia(nuevaX, nuevaY)
-                        && tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo) {
-                    tab.actualizarCasilla(null, enemigo.getCordX(), enemigo.getCordY());
-                    enemigo.setCordX(nuevaX);
-                    enemigo.setCordY(nuevaY);
-                    tab.actualizarCasilla(enemigo, nuevaX, nuevaY);
+
+                if (nuevaX >= 0 && nuevaX < tab.getAncho() && nuevaY >= 0 && nuevaY < tab.getAlto() &&
+                    tab.EstaCasillaEstaVacia(nuevaX, nuevaY) &&
+                    tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo) {
+                    tab.actualizarCasilla(null, this.getCordX(), this.getCordY());
+                    this.setCordX(nuevaX);
+                    this.setCordY(nuevaY);
+                    tab.actualizarCasilla(this, nuevaX, nuevaY);
                     seguir = false;
-                    enemigo.notifyObservers();
-                    
+                    this.notifyObservers();
                 }
-
             }
         }
+    }
 
+    @Override
+    public void onChange() {
+        // Lógica para reaccionar a los cambios del protagonista
+        this.moverse();
     }
 
     public float CalculoAlgoritmo(int x1, int y1, int x2, int y2) {

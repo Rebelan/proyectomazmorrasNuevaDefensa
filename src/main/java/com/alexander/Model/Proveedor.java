@@ -8,12 +8,14 @@ public class Proveedor {
     private Enemigo e;
 
     private Proveedor() {
-        this.gp = new GestorPersonajes();
-        this.tab = new Tablero();
         // Crear y asignar el protagonista con valores predeterminados
         this.p = new Protagonista(10, 100, 15, "Héroe");
+        this.gp = new GestorPersonajes(p);
+        this.tab = new Tablero();
         gp.setProta(p);
         tab.LecturaInicioTablero(gp);
+        // Crear y asignar un enemigo con valores predeterminados
+        this.e = new Enemigo(5, 50, 10, 3, "Enemigo Inicial");
     }
     public static Proveedor getInstance() {
         if (instance == null) {
