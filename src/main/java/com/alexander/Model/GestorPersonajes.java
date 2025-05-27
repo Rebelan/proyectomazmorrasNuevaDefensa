@@ -4,32 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.alexander.Interfaces.Observer;
 
 public class GestorPersonajes {
     private Protagonista prota;
     ArrayList<Personaje> personajes;
-    ArrayList<Observer> observers;
 
-    /**
-     * Suscribe un observer.
-     * 
-     * @param observer Observer a suscribir.
-     */
-    public void subscribe(Observer observer) {
-        observers.add(observer);
-    }
-    /**
-     * Elimina un observer.
-     * @param observer Observer a eliminar.
-     */
-    public void unsubscribe(Observer observer) {
-        observers.remove(observer);
-    }
-
-    public void notifyObservers() {
-        observers.forEach(item -> item.onChange());
-    }
+    
     /**
      * Constructor de GestorPersonajes.
      * @param prota Protagonista principal.
@@ -37,14 +17,6 @@ public class GestorPersonajes {
     public GestorPersonajes(Protagonista prota) {
         this.personajes = LecturaEnemigos.leerEnemigos();
         this.prota = prota;
-        this.observers = new ArrayList<>();
-
-        // Suscribir enemigos al protagonista
-        for (Personaje personaje : personajes) {
-            if (personaje instanceof Enemigo) {
-                prota.subscribe((Observer) personaje);
-            }
-        }
     }
     /**
      * Método para insertar un personaje en el gestor.
@@ -53,7 +25,6 @@ public class GestorPersonajes {
      */
     public void insertarPersonaje(Personaje e) {
         this.personajes.add(e);
-        notifyObservers();
     }
     /**
      * Método para eliminar un personaje del gestor.
@@ -62,7 +33,6 @@ public class GestorPersonajes {
      */
     public void eliminarEnemigo(Personaje e) {
         this.personajes.remove(e);
-        notifyObservers();
     }
     /**
      * Método para obtener el personaje por su nombre.
@@ -90,12 +60,6 @@ public class GestorPersonajes {
      */
     public void setProta(Protagonista prota) {
         this.prota = prota;
-        // Suscribir todos los enemigos al protagonista
-        for (Personaje personaje : this.personajes) {
-            if (personaje instanceof Enemigo) {
-                prota.subscribe((Observer) personaje);
-            }
-        }
     }
     /**
      * Método para obtener un enemigo aleatorio.

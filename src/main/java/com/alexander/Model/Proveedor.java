@@ -1,10 +1,15 @@
 package com.alexander.Model;
 
+import java.util.ArrayList;
+
+import com.alexander.Interfaces.Observer;
+
 public class Proveedor {
     private static Proveedor instance;
     private GestorPersonajes gp;
     private Tablero tab;
     private Protagonista p;
+    ArrayList<Observer> observers;
 
     private Proveedor() {
         // Crear y asignar el protagonista con valores predeterminados
@@ -13,7 +18,34 @@ public class Proveedor {
         this.tab = new Tablero();
         gp.setProta(p);
         tab.LecturaInicioTablero(gp);
+        observers = new ArrayList<>();
     }
+
+    /**
+     * Método para suscribir un observador.
+     * 
+     * @param observer Observador a suscribir.
+     */
+    public void subscribe(Observer observer) {
+        observers.add(observer);
+    }
+
+    /**
+     * Método para eliminar un observador.
+     * 
+     * @param observer Observador a eliminar.
+     */
+    public void unsubscribe(Observer observer) {
+        observers.remove(observer);
+    }
+
+    /**
+     * Método para notificar a los observadores.
+     */
+    public void notifyObservers() {
+        observers.forEach(item -> item.onChange());
+    }
+
     public static Proveedor getInstance() {
         if (instance == null) {
             instance = new Proveedor();
@@ -48,6 +80,7 @@ public class Proveedor {
             Personaje p = gp.getNombrePersonaje().get(i);
             p.moverse();
     }
+        notifyObservers();
   }
     
 }

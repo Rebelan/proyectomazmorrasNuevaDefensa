@@ -88,105 +88,41 @@ public class Enemigo extends Personaje implements Observer {
 
     @Override
     public void moverse() {
-        
         Random r = new Random();
         Proveedor p = Proveedor.getInstance();
         Tablero tab = p.getTab();
+        int mov = 0;
         Protagonista prota = p.getP();
-
+        ArrayList<Integer[]> direcciones = new ArrayList<>();
+        Integer[][] direccionesPosibles = {{1,0},{0,-1},{-1,0},{0,1}};
+        
         boolean seguir = true;
-        float Calculo1 = this.CalculoAlgoritmo(this.getCordX(), this.getCordY(), prota.getCordX(),
-                prota.getCordY());
+        float distancia = this.CalculoAlgoritmo(this.getCordX(), this.getCordY(), prota.getCordX(),
+        prota.getCordY());
+        float menor = distancia;
         int nuevaX = this.getCordX();
         int nuevaY = this.getCordY();
 
-        if (Calculo1 <= this.getPercepcion()) {
-            if (this.getCordX() - 1 >= 0 && this.getCordX() - 1 < tab.getAncho() && this.getCordY() >= 0
-                    && this.getCordY() < tab.getAlto()) {
-                if (tab.getTipoCasilla(this.getCordX() - 1, this.getCordY()) != TipoCasilla.Pared) {
-                    if (Calculo1 < this.CalculoAlgoritmo(this.getCordX() - 1, this.getCordY(), prota.getCordX(),
-                            prota.getCordY())) {
-                        Calculo1 = this.CalculoAlgoritmo(this.getCordX() - 1, this.getCordY(), prota.getCordX(),
-                                prota.getCordY());
-                        nuevaX = this.getCordX() - 1;
-                        nuevaY = this.getCordY();
-                    }
-                }
+        for (int i = 0; i < 4; i++) {
+            if(p.getTab().momivimientoValido(direccionesPosibles[i][0]+nuevaX,direccionesPosibles[i][1]+nuevaY)){
+                direcciones.add(direccionesPosibles[i]);
             }
-            // Validar otras direcciones
-            if (this.getCordX() + 1 >= 0 && this.getCordX() + 1 < tab.getAncho() && this.getCordY() >= 0
-                    && this.getCordY() < tab.getAlto()) {
-                if (tab.getTipoCasilla(this.getCordX() + 1, this.getCordY()) != TipoCasilla.Pared) {
-                    if (Calculo1 < this.CalculoAlgoritmo(this.getCordX() + 1, this.getCordY(), prota.getCordX(),
-                            prota.getCordY())) {
-                        Calculo1 = this.CalculoAlgoritmo(this.getCordX() + 1, this.getCordY(), prota.getCordX(),
-                                prota.getCordY());
-                        nuevaX = this.getCordX() + 1;
-                        nuevaY = this.getCordY();
-                    }
-                }
-            }
-            if (this.getCordX() >= 0 && this.getCordX() < tab.getAncho() && this.getCordY() - 1 >= 0
-                    && this.getCordY() - 1 < tab.getAlto()) {
-                if (tab.getTipoCasilla(this.getCordX(), this.getCordY() - 1) != TipoCasilla.Pared) {
-                    if (Calculo1 < this.CalculoAlgoritmo(this.getCordX(), this.getCordY() - 1, prota.getCordX(),
-                            prota.getCordY())) {
-                        Calculo1 = this.CalculoAlgoritmo(this.getCordX(), this.getCordY() - 1, prota.getCordX(),
-                                prota.getCordY());
-                        nuevaX = this.getCordX();
-                        nuevaY = this.getCordY() - 1;
-                    }
-                }
-            }
-            if (this.getCordX() >= 0 && this.getCordX() < tab.getAncho() && this.getCordY() + 1 >= 0
-                    && this.getCordY() + 1 < tab.getAlto()) {
-                if (tab.getTipoCasilla(this.getCordX(), this.getCordY() + 1) != TipoCasilla.Pared) {
-                    if (Calculo1 < this.CalculoAlgoritmo(this.getCordX(), this.getCordY() + 1, prota.getCordX(),
-                            prota.getCordY())) {
-                        Calculo1 = this.CalculoAlgoritmo(this.getCordX(), this.getCordY() + 1, prota.getCordX(),
-                                prota.getCordY());
-                        nuevaX = this.getCordX();
-                        nuevaY = this.getCordY() + 1;
-                    }
-                }
-            }
-
-            // Actualizar posición del enemigo
-            tab.actualizarCasilla(this, nuevaX, nuevaY);
-        } else {
-            while (seguir) {
-                int opRandom = r.nextInt(4);
-                switch (opRandom) {
-                    case 0: // Arriba
-                        nuevaX = this.getCordX() - 1;
-                        nuevaY = this.getCordY();
-                        break;
-                    case 1: // Abajo
-                        nuevaX = this.getCordX() + 1;
-                        nuevaY = this.getCordY();
-                        break;
-                    case 2: // Izquierda
-                        nuevaX = this.getCordX();
-                        nuevaY = this.getCordY() - 1;
-                        break;
-                    case 3: // Derecha
-                        nuevaX = this.getCordX();
-                        nuevaY = this.getCordY() + 1;
-                        break;
-                }
-
-                if (nuevaX >= 0 && nuevaX < tab.getAncho() && nuevaY >= 0 && nuevaY < tab.getAlto() &&
-                        tab.EstaCasillaEstaVacia(nuevaX, nuevaY) &&
-                        tab.getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo) {
-                    tab.actualizarCasilla(null, this.getCordX(), this.getCordY());
-                    this.setCordX(nuevaX);
-                    this.setCordY(nuevaY);
-                    tab.actualizarCasilla(this, nuevaX, nuevaY);
-                    seguir = false;
-                    this.notifyObservers();
+        }
+        if (distancia >= this.percepcion) {
+               mov = r.nextInt(direcciones.size());
+        }else{
+            for (int i = 0; i < direcciones.size(); i++) {
+                menor = CalculoAlgoritmo(p.getP().getCordX(),p.getP().getCordY(),direcciones.get(i)[0],direcciones.get(i)[1]);
+                if (menor<distancia) {
+                    menor=distancia;
+                    mov = i;
                 }
             }
         }
+        nuevaX = this.getCordX() + direcciones.get(mov)[0];
+        nuevaY = this.getCordY() + direcciones.get(mov)[1];
+
+       
     }
 
     @Override

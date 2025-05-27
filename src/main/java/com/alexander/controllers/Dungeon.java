@@ -40,7 +40,8 @@ public class Dungeon implements Observer {
     @FXML
     public void initialize() {
         gp = Proveedor.getInstance().getGp();
-        gp.subscribe(this);
+        Proveedor.getInstance().subscribe(this); // Suscribirse a los cambios del proveedor
+        
 
         gridTablero.setHgap(0); // Sin espaciado horizontal
         gridTablero.setVgap(0); // Sin espaciado vertical
@@ -113,12 +114,14 @@ public class Dungeon implements Observer {
                     return;
             }
             Proveedor.getInstance().MoverPersonajes();
-            GenerarMapaPersonajes(); // Actualizar la visualización del tablero
+             // Actualizar la visualización del tablero
         });
 
         // Asegurarse de que el StackPane tenga el foco para capturar eventos de teclado
         stackPane.setFocusTraversable(true);
         stackPane.requestFocus();
+
+
     }
 
     public void GenerarMapaPersonajes() {
@@ -165,7 +168,7 @@ public class Dungeon implements Observer {
 
     @Override
     public void onChange() {
-
+        GenerarMapaPersonajes();
     }
 
 }

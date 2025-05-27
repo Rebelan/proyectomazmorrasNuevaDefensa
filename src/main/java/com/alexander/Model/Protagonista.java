@@ -23,28 +23,7 @@ public class Protagonista extends Personaje {
         // Inicializar la lista de observadores en el constructor
         this.observers = new ArrayList<>();
     }
-    /**
-     * Método para suscribir un observador.
-     * 
-     * @param observer Observador a suscribir.
-     */
-    public void subscribe(Observer observer) {
-        observers.add(observer);
-    }
-    /**
-     * Método para eliminar un observador.
-     * 
-     * @param observer Observador a eliminar.
-     */
-    public void unsubscribe(Observer observer) {
-        observers.remove(observer);
-    }
-    /**
-     * Método para notificar a los observadores.
-     */
-    public void notifyObservers() {
-        observers.forEach(item -> item.onChange());
-    }
+    
     /**
      * Método para obtener el nombre del protagonista.
      * 
@@ -121,7 +100,7 @@ public class Protagonista extends Personaje {
 
             System.out.println("Movimiento válido. Actualizando posición del protagonista.");
             p.getTab().actualizarCasilla(p.getP(), nuevaX, nuevaY);
-            notifyObservers();
+            
 
             // Mover a los enemigos después de mover al protagonista
             

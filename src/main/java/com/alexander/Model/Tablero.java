@@ -130,9 +130,10 @@ public class Tablero {
      */
     public boolean EstaCasillaEstaVacia(int x, int y) {
         return tablero[x][y].getPersonaje() == null;
-
     }
-    
+    public boolean momivimientoValido(int x, int y){
+        return (x>=0 && y>=0)&&(x<=getAncho()&&y<=getAlto())&&(getTipoCasilla(x, y)!=TipoCasilla.Pared);
+    }
     public int getNFilas() {
         return tablero.length;
     }
