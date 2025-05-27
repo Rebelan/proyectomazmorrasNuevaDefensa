@@ -89,6 +89,7 @@ public class Dungeon implements Observer {
         GenerarMapaPersonajes();
 
         // Configurar eventos de teclado para mover al protagonista
+
         stackPane.setOnKeyPressed(event -> {
             Protagonista prota = (Protagonista) Proveedor.getInstance().getP();
             switch (event.getCode()) {
@@ -111,7 +112,7 @@ public class Dungeon implements Observer {
                 default:
                     return;
             }
-            prota.moverse();
+            Proveedor.getInstance().MoverPersonajes();
             GenerarMapaPersonajes(); // Actualizar la visualización del tablero
         });
 

@@ -88,6 +88,7 @@ public class Enemigo extends Personaje implements Observer {
 
     @Override
     public void moverse() {
+        
         Random r = new Random();
         Proveedor p = Proveedor.getInstance();
         Tablero tab = p.getTab();

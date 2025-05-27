@@ -5,7 +5,6 @@ public class Proveedor {
     private GestorPersonajes gp;
     private Tablero tab;
     private Protagonista p;
-    private Enemigo e;
 
     private Proveedor() {
         // Crear y asignar el protagonista con valores predeterminados
@@ -14,8 +13,6 @@ public class Proveedor {
         this.tab = new Tablero();
         gp.setProta(p);
         tab.LecturaInicioTablero(gp);
-        // Crear y asignar un enemigo con valores predeterminados
-        this.e = new Enemigo(5, 50, 10, 3, "Enemigo Inicial");
     }
     public static Proveedor getInstance() {
         if (instance == null) {
@@ -41,11 +38,16 @@ public class Proveedor {
     public void setP(Protagonista p) {
         this.p = p;
     }
-    public Enemigo getE() {
-        return e;
+
+    /**
+     * Mueve los personajes en el tablero.
+     */
+    public void MoverPersonajes() {
+        gp.ordenarPersonajes();
+        for (int i = 0; i < gp.getNombrePersonaje().size(); i++) {
+            Personaje p = gp.getNombrePersonaje().get(i);
+            p.moverse();
     }
-    public void setE(Enemigo e) {
-        this.e = e;
-    }
+  }
     
 }

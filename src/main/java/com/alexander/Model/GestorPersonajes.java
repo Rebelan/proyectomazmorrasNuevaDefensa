@@ -6,7 +6,7 @@ import java.util.Random;
 
 import com.alexander.Interfaces.Observer;
 
-public class GestorPersonajes implements Comparable<GestorPersonajes> {
+public class GestorPersonajes {
     private Protagonista prota;
     ArrayList<Personaje> personajes;
     ArrayList<Observer> observers;
@@ -124,27 +124,6 @@ public class GestorPersonajes implements Comparable<GestorPersonajes> {
         // ordenamos el arraylist de personajes por velocidad
         // de mayor a menor
         personajes.sort(null);
-    }
-
-    @Override
-    /**
-     * Método para comparar dos gestores de personajes por la velocidad del
-     * protagonista.
-     * 
-     * @param o GestorPersonajes a comparar.
-     * @return -1 si el protagonista es más rápido, 1 si es más lento, 0 si son
-     *         iguales.
-     */
-    public int compareTo(GestorPersonajes o) {
-        // comparamos velocidad de los personajes para ordenar el arraylist de mayor a
-        // menor
-        if (this.prota.getVelocidad() > o.prota.getVelocidad()) {
-            return -1;
-        } else if (this.prota.getVelocidad() < o.prota.getVelocidad()) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
 
 }

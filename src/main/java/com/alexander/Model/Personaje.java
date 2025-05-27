@@ -2,7 +2,7 @@ package com.alexander.Model;
 
 
 
-public class Personaje {
+public class Personaje implements Comparable<Personaje> {
     private int velocidad;
     protected int vitalidad;
     private int fuerza;
@@ -114,6 +114,27 @@ public class Personaje {
      */
     public void moverse(){
       
+    }
+
+     @Override
+    /**
+     * Método para comparar dos gestores de personajes por la velocidad del
+     * protagonista.
+     * 
+     * @param o GestorPersonajes a comparar.
+     * @return -1 si el protagonista es más rápido, 1 si es más lento, 0 si son
+     *         iguales.
+     */
+    public int compareTo(Personaje o) {
+        // comparamos velocidad de los personajes para ordenar el arraylist de mayor a
+        // menor
+        if (this.getVelocidad() > o.getVelocidad()) {
+            return -1;
+        } else if (this.getVelocidad() < o.getVelocidad()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }
