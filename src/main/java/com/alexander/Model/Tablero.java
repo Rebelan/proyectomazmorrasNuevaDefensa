@@ -53,8 +53,8 @@ public class Tablero {
                             break;
                         case 3:
                             tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getEnemigo());
-                            gp.getEnemigo().setCordX(i);
-                            gp.getEnemigo().setCordY(filas);
+                            gp.getEnemigo().setCordX(filas);
+                            gp.getEnemigo().setCordY(i);
                             break;
                         default:
 
@@ -94,12 +94,11 @@ public class Tablero {
         }
 
         // Actualiza la casilla del personaje en el tablero
-        if (tablero[x][y].getTipo() == TipoCasilla.Suelo && tablero[x][y].getPersonaje() == null) {
             tablero[pj.getCordX()][pj.getCordY()].setPersonaje(null);
             tablero[x][y].setPersonaje(pj);
             pj.setCordX(x);
             pj.setCordY(y);
-        }
+        
     }
     /**
      * Obtiene el tipo de casilla en las coordenadas dadas.
@@ -140,6 +139,10 @@ public class Tablero {
     
     public int getNColumnas() {
         return tablero[0].length;
+    }
+
+    public void personajeMuerto(int x, int y){
+        tablero[x][y].setPersonaje(null);;
     }
     /**
      * Método para obtener el tablero.

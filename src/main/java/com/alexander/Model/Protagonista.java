@@ -92,17 +92,14 @@ public class Protagonista extends Personaje {
         if (p.getTab().EstaCasillaEstaVacia(nuevaX, nuevaY)
                 && p.getTab().getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo) {
             
-            p.getTab().actualizarCasilla(p.getP(), nuevaX, nuevaY);
-            if (p.getP() == null) {
-                System.err.println("Error: El protagonista no está inicializado.");
-                return;
-            }
-
             System.out.println("Movimiento válido. Actualizando posición del protagonista.");
             p.getTab().actualizarCasilla(p.getP(), nuevaX, nuevaY);
             
 
             // Mover a los enemigos después de mover al protagonista
+            
+        }else if (p.getTab().getPersonaje(nuevaX, nuevaY)instanceof Enemigo) {
+            p.getP().pegar(p.getTab().getPersonaje(nuevaX, nuevaY));
             
         }
     }

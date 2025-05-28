@@ -10,6 +10,7 @@ public class Proveedor {
     private Tablero tab;
     private Protagonista p;
     ArrayList<Observer> observers;
+    private boolean finJuego = false;
 
     private Proveedor() {
         // Crear y asignar el protagonista con valores predeterminados
@@ -70,16 +71,28 @@ public class Proveedor {
     public void setP(Protagonista p) {
         this.p = p;
     }
-
+    public boolean getFinJuego(){
+        return this.finJuego;
+    }
     /**
      * Mueve los personajes en el tablero.
      */
     public void MoverPersonajes() {
         gp.ordenarPersonajes();
-        for (int i = 0; i < gp.getNombrePersonaje().size(); i++) {
-            Personaje p = gp.getNombrePersonaje().get(i);
+        for (int i = 0; i < gp.getListaPersonaje().size(); i++) {
+            Personaje p = gp.getListaPersonaje().get(i);
             p.moverse();
     }
+        for (int i = 0; i < gp.getListaPersonaje().size(); i++) {
+            if (gp.getListaPersonaje().get(i).getVitalidad()<=0) {
+                tab.personajeMuerto(gp.getListaPersonaje().get(i).getCordX(), gp.getListaPersonaje().get(i).getCordY());
+                gp.eliminarEnemigo(gp.getListaPersonaje().get(i));
+                i--;
+            }
+        }
+        if (p.getVitalidad()<=0||gp.getListaPersonaje().size()==1) {
+            finJuego=true;
+        }
         notifyObservers();
   }
     

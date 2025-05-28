@@ -92,13 +92,14 @@ public class Personaje implements Comparable<Personaje> {
     public void setCordY(int cordY) {
         this.cordY = cordY;
     }
+    public void pegar(Personaje contrincante){
+        contrincante.setVitalidad(contrincante.getVitalidad()-(this.getFuerza()/10));
+    }
     /**
      * Método para recibir un golpe.
-     * @param dmg Daño recibido.
-     * @return true si el personaje muere, false en caso contrario.
      */
-    public boolean recibirGolpe(double dmg) {
-        return false;
+    public void recibirGolpe() {
+        
     }
     
     @Override

@@ -40,7 +40,7 @@ public class GestorPersonajes {
      * @param nombre Nombre del personaje a buscar.
      * @return Personaje encontrado o null si no se encuentra.
      */
-    public List<Personaje> getNombrePersonaje() {
+    public List<Personaje> getListaPersonaje() {
         return this.personajes;
     }
     /**

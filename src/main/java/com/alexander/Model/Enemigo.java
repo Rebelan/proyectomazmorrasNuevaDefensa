@@ -96,9 +96,7 @@ public class Enemigo extends Personaje implements Observer {
         ArrayList<Integer[]> direcciones = new ArrayList<>();
         Integer[][] direccionesPosibles = {{1,0},{0,-1},{-1,0},{0,1}};
         
-        boolean seguir = true;
-        float distancia = this.CalculoAlgoritmo(this.getCordX(), this.getCordY(), prota.getCordX(),
-        prota.getCordY());
+        float distancia = this.CalculoAlgoritmo(this.getCordX(), this.getCordY(), prota.getCordX(),prota.getCordY());
         float menor = distancia;
         int nuevaX = this.getCordX();
         int nuevaY = this.getCordY();
@@ -112,7 +110,7 @@ public class Enemigo extends Personaje implements Observer {
                mov = r.nextInt(direcciones.size());
         }else{
             for (int i = 0; i < direcciones.size(); i++) {
-                menor = CalculoAlgoritmo(p.getP().getCordX(),p.getP().getCordY(),direcciones.get(i)[0],direcciones.get(i)[1]);
+                menor = CalculoAlgoritmo(p.getP().getCordX(),p.getP().getCordY(),getCordX()+direcciones.get(i)[0],getCordY()+direcciones.get(i)[1]);
                 if (menor<distancia) {
                     menor=distancia;
                     mov = i;
@@ -121,7 +119,14 @@ public class Enemigo extends Personaje implements Observer {
         }
         nuevaX = this.getCordX() + direcciones.get(mov)[0];
         nuevaY = this.getCordY() + direcciones.get(mov)[1];
-
+        if (p.getTab().getPersonaje(nuevaX, nuevaY)instanceof Protagonista) {
+            p.getP().pegar(p.getTab().getPersonaje(nuevaX, nuevaY));
+        }else{
+            tab.actualizarCasilla(this, nuevaX, nuevaY);
+        }
+        
+       
+        notifyObservers();
        
     }
 

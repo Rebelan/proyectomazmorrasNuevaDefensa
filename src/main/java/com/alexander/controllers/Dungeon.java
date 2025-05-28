@@ -120,7 +120,7 @@ public class Dungeon implements Observer {
         // Asegurarse de que el StackPane tenga el foco para capturar eventos de teclado
         stackPane.setFocusTraversable(true);
         stackPane.requestFocus();
-
+        
 
     }
 
@@ -130,18 +130,20 @@ public class Dungeon implements Observer {
 
         Image enemigo = new Image(App.class.getResourceAsStream("/com/alexander/data/enemigo.png"), 50, 50, false, false);
         Image prota = new Image(App.class.getResourceAsStream("/com/alexander/data/SpriteProta.png"), 50, 50, false, false);
-
+        
         for (int fila = 0; fila < tableroEnemigos.getNFilas(); fila++) {
             for (int col = 0; col < tableroEnemigos.getNColumnas(); col++) {
-                if (tableroEnemigos.getTipoCasilla(fila, col) == TipoCasilla.Suelo) {
+                
                     Personaje personaje = tableroEnemigos.getPersonaje(fila, col);
+                    System.out.print(personaje+" ");
                     if (personaje instanceof Protagonista) {
                         gridTableroPersonajes.add(new ImageView(prota), col, fila);
                     } else if (personaje instanceof Enemigo) {
                         gridTableroPersonajes.add(new ImageView(enemigo), col, fila);
                     }
-                }
+                
             }
+            System.out.println();
         }
     }
 
@@ -165,10 +167,15 @@ public class Dungeon implements Observer {
             }
         }
     }
+    
+    
 
     @Override
     public void onChange() {
         GenerarMapaPersonajes();
+        if (Proveedor.getInstance().getFinJuego()) {
+            System.out.println("Fin partida");
+        }
     }
 
 }
