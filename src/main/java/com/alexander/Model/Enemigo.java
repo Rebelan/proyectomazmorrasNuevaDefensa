@@ -83,7 +83,8 @@ public class Enemigo extends Personaje implements Observer {
         return "{" +
                 " nombreEnemigo='" + getNombreEnemigo() + "'" +
                 super.toString() +
-                ", percepcion='" + getPercepcion() + "'";
+                ", percepcion='" + getPercepcion() + "'" + getCordX() + " "+ getCordY() +
+                "}";
     }
 
     @Override

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Random;
 
 import com.alexander.App;
 
@@ -23,6 +25,8 @@ public class Tablero {
         tablero = new Casilla[13][13];
         String[] columnas;
         int filas = 0;
+        Random random = new Random();
+        ArrayList<Personaje> enemigosCopia = new ArrayList<>((ArrayList<Personaje>) gp.getListaPersonaje());
         // Verificar si el protagonista está inicializado antes de usarlo
         if (gp.getProta() == null) {
             throw new IllegalStateException("El protagonista no está inicializado en GestorPersonajes.");
@@ -48,13 +52,20 @@ public class Tablero {
                                         "El protagonista no está inicializado en GestorPersonajes.");
                             }
                             tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getProta());
-                            gp.getProta().setCordX(i);
-                            gp.getProta().setCordY(filas);
+                            gp.getProta().setCordX(filas);
+                            gp.getProta().setCordY(i);
                             break;
                         case 3:
-                            tablero[filas][i] = new Casilla(TipoCasilla.Suelo, gp.getEnemigo());
-                            gp.getEnemigo().setCordX(filas);
-                            gp.getEnemigo().setCordY(i);
+                            int aleatorio = random.nextInt(enemigosCopia.size());
+                            if (enemigosCopia.get(aleatorio) instanceof Protagonista) {
+                                enemigosCopia.remove(aleatorio);
+                            } else {
+                                Enemigo enemigo = (Enemigo) enemigosCopia
+                                        .remove(aleatorio);
+                                tablero[filas][i] = new Casilla(TipoCasilla.Suelo, enemigo);
+                                enemigo.setCordX(filas);
+                                enemigo.setCordY(i);
+                            }
                             break;
                         default:
 
@@ -94,12 +105,13 @@ public class Tablero {
         }
 
         // Actualiza la casilla del personaje en el tablero
-            tablero[pj.getCordX()][pj.getCordY()].setPersonaje(null);
-            tablero[x][y].setPersonaje(pj);
-            pj.setCordX(x);
-            pj.setCordY(y);
-        
+        tablero[pj.getCordX()][pj.getCordY()].setPersonaje(null);
+        tablero[x][y].setPersonaje(pj);
+        pj.setCordX(x);
+        pj.setCordY(y);
+
     }
+
     /**
      * Obtiene el tipo de casilla en las coordenadas dadas.
      * 
@@ -110,6 +122,7 @@ public class Tablero {
     public TipoCasilla getTipoCasilla(int x, int y) {
         return tablero[x][y].getTipo();
     }
+
     /**
      * Obtiene el personaje en las coordenadas dadas.
      * 
@@ -120,6 +133,7 @@ public class Tablero {
     public Personaje getPersonaje(int x, int y) {
         return tablero[x][y].getPersonaje();
     }
+
     /**
      * Verifica si la casilla está vacía.
      * 
@@ -130,20 +144,23 @@ public class Tablero {
     public boolean EstaCasillaEstaVacia(int x, int y) {
         return tablero[x][y].getPersonaje() == null;
     }
-    public boolean momivimientoValido(int x, int y){
-        return (x>=0 && y>=0)&&(x<=getAncho()&&y<=getAlto())&&(getTipoCasilla(x, y)!=TipoCasilla.Pared);
+
+    public boolean momivimientoValido(int x, int y) {
+        return (x >= 0 && y >= 0) && (x <= getAncho() && y <= getAlto()) && (getTipoCasilla(x, y) != TipoCasilla.Pared);
     }
+
     public int getNFilas() {
         return tablero.length;
     }
-    
+
     public int getNColumnas() {
         return tablero[0].length;
     }
 
-    public void personajeMuerto(int x, int y){
-        tablero[x][y].setPersonaje(null);;
+    public void personajeMuerto(int x, int y) {
+        tablero[x][y].setPersonaje(null);
     }
+
     /**
      * Método para obtener el tablero.
      * 

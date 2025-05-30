@@ -1,5 +1,7 @@
 package com.alexander.controllers;
 
+import java.util.ArrayList;
+
 import com.alexander.App;
 import com.alexander.Interfaces.Observer;
 import com.alexander.Model.Personaje;
@@ -131,6 +133,10 @@ public class Dungeon implements Observer {
         Image enemigo = new Image(App.class.getResourceAsStream("/com/alexander/data/enemigo.png"), 50, 50, false, false);
         Image prota = new Image(App.class.getResourceAsStream("/com/alexander/data/SpriteProta.png"), 50, 50, false, false);
         
+        ArrayList<Personaje> personajes = (ArrayList<Personaje>)Proveedor.getInstance().getGp().getListaPersonaje();
+        System.out.println("Personajes en la lista");
+        System.out.println(personajes);
+        System.out.println("Personajes en el tablero");
         for (int fila = 0; fila < tableroEnemigos.getNFilas(); fila++) {
             for (int col = 0; col < tableroEnemigos.getNColumnas(); col++) {
                 
