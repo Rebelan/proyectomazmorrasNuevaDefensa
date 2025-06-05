@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox1" alignment="CENTER" prefHeight="78.0" prefWidth="97.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alexander.controllers.Dungeon">
+<VBox fx:id="vbox1" alignment="CENTER" prefHeight="78.0" prefWidth="97.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alexander.controllers.FinDelJuegoDerrota">
    <children>
       <Label fx:id="LDerrota" text="Has muerto" />
       <Button fx:id="botonCerrar2" text="Cerrar" />

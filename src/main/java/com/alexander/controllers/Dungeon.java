@@ -125,8 +125,6 @@ public class Dungeon implements Observer {
         stackPane.setFocusTraversable(true);
         stackPane.requestFocus();
 
-        
-
     }
 
     public void GenerarMapaPersonajes() {
@@ -182,10 +180,12 @@ public class Dungeon implements Observer {
     @Override
     public void onChange() {
         GenerarMapaPersonajes();
-        if (gp.getProta().getVitalidad() <= 0) {
+        int vitalidad = Proveedor.getInstance().getP().getVitalidad();
+        System.out.println("Vitalidad prota: " + vitalidad);
+        if (vitalidad <= 0) {
             System.out.println("El protagonista ha muerto. Fin del juego.");
             SceneManager.getInstance().loadScene(SceneID.finJuegoDerrota);
-        } else if (gp.getListaPersonaje().size() == 1) {
+        } else if (Proveedor.getInstance().getGp().getListaPersonaje().size() == 1) {
             System.out.println("Todos los enemigos han sido derrotados. Fin del juego.");
             SceneManager.getInstance().loadScene(SceneID.finJuegoVictoria);
         }
