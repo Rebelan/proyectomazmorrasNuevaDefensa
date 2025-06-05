@@ -1,5 +1,5 @@
 package com.alexander;
 
 public enum SceneID {
-    Primera, Segunda
+    Primera, Segunda, finJuegoVictoria, finJuegoDerrota
 }

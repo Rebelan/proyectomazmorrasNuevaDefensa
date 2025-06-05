@@ -1,8 +1,5 @@
 package com.alexander.controllers;
 
-
-
-
 import com.alexander.SceneID;
 import com.alexander.SceneManager;
 
@@ -67,8 +64,8 @@ public class CrearPersonaje {
             Proveedor.getInstance().setP(prota);
             Proveedor.getInstance().getGp().insertarPersonaje(prota);
             SceneManager.getInstance().loadScene(SceneID.Segunda);
-            
+
         });
     }
-   
+
 }

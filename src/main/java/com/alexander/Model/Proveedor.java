@@ -53,27 +53,35 @@ public class Proveedor {
         }
         return instance;
     }
+
     public GestorPersonajes getGp() {
         return gp;
     }
+
     public void setGp(GestorPersonajes gp) {
         this.gp = gp;
     }
+
     public Tablero getTab() {
         return tab;
     }
+
     public void setTab(Tablero tab) {
         this.tab = tab;
     }
+
     public Protagonista getP() {
         return p;
     }
+
     public void setP(Protagonista p) {
         this.p = p;
     }
-    public boolean getFinJuego(){
+
+    public boolean getFinJuego() {
         return this.finJuego;
     }
+
     /**
      * Mueve los personajes en el tablero.
      */
@@ -82,18 +90,18 @@ public class Proveedor {
         for (int i = 0; i < gp.getListaPersonaje().size(); i++) {
             Personaje p = gp.getListaPersonaje().get(i);
             p.moverse();
-    }
+        }
         for (int i = 0; i < gp.getListaPersonaje().size(); i++) {
-            if (gp.getListaPersonaje().get(i).getVitalidad()<=0) {
+            if (gp.getListaPersonaje().get(i).getVitalidad() <= 0) {
                 tab.personajeMuerto(gp.getListaPersonaje().get(i).getCordX(), gp.getListaPersonaje().get(i).getCordY());
                 gp.eliminarEnemigo(gp.getListaPersonaje().get(i));
                 i--;
             }
         }
-        if (p.getVitalidad()<=0||gp.getListaPersonaje().size()==1) {
-            finJuego=true;
+        if (p.getVitalidad() <= 0 || gp.getListaPersonaje().size() == 1) {
+            finJuego = true;
         }
         notifyObservers();
-  }
-    
+    }
+
 }

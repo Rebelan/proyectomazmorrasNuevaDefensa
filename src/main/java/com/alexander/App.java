@@ -30,6 +30,8 @@ public class App extends Application {
 
         sm.setScene(SceneID.Primera, "primary");
         sm.setScene(SceneID.Segunda, "secondary");
+        sm.setScene(SceneID.finJuegoVictoria, "finJuegoVictoria");
+        sm.setScene(SceneID.finJuegoDerrota, "finJuegoDerrota");
 
         sm.loadScene(SceneID.Primera);
     }

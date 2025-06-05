@@ -3,6 +3,8 @@ package com.alexander.controllers;
 import java.util.ArrayList;
 
 import com.alexander.App;
+import com.alexander.SceneID;
+import com.alexander.SceneManager;
 import com.alexander.Interfaces.Observer;
 import com.alexander.Model.Personaje;
 import com.alexander.Model.Protagonista;
@@ -43,7 +45,6 @@ public class Dungeon implements Observer {
     public void initialize() {
         gp = Proveedor.getInstance().getGp();
         Proveedor.getInstance().subscribe(this); // Suscribirse a los cambios del proveedor
-        
 
         gridTablero.setHgap(0); // Sin espaciado horizontal
         gridTablero.setVgap(0); // Sin espaciado vertical
@@ -79,12 +80,13 @@ public class Dungeon implements Observer {
             col.setPrefWidth(30);
             col.setMaxWidth(30);
             gridTablero.getColumnConstraints().add(col);
-            gridTableroPersonajes.getColumnConstraints().add(col); // Asegurarse de que ambos GridPane tengan las mismas columnas
+            gridTableroPersonajes.getColumnConstraints().add(col); // Asegurarse de que ambos GridPane tengan las mismas
+                                                                   // columnas
         }
 
         // limpieza del StackPane antes de agregar nuevos elementos
-        stackPane.getChildren().clear();   
-        
+        stackPane.getChildren().clear();
+
         // Agregar ambos GridPane al StackPane
         stackPane.getChildren().addAll(gridTablero, gridTableroPersonajes);
 
@@ -116,12 +118,13 @@ public class Dungeon implements Observer {
                     return;
             }
             Proveedor.getInstance().MoverPersonajes();
-             // Actualizar la visualización del tablero
+            // Actualizar la visualización del tablero
         });
 
         // Asegurarse de que el StackPane tenga el foco para capturar eventos de teclado
         stackPane.setFocusTraversable(true);
         stackPane.requestFocus();
+
         
 
     }
@@ -130,24 +133,26 @@ public class Dungeon implements Observer {
         Tablero tableroEnemigos = Proveedor.getInstance().getTab();
         gridTableroPersonajes.getChildren().clear();
 
-        Image enemigo = new Image(App.class.getResourceAsStream("/com/alexander/data/enemigo.png"), 50, 50, false, false);
-        Image prota = new Image(App.class.getResourceAsStream("/com/alexander/data/SpriteProta.png"), 50, 50, false, false);
-        
-        ArrayList<Personaje> personajes = (ArrayList<Personaje>)Proveedor.getInstance().getGp().getListaPersonaje();
+        Image enemigo = new Image(App.class.getResourceAsStream("/com/alexander/data/enemigo.png"), 50, 50, false,
+                false);
+        Image prota = new Image(App.class.getResourceAsStream("/com/alexander/data/SpriteProta.png"), 50, 50, false,
+                false);
+
+        ArrayList<Personaje> personajes = (ArrayList<Personaje>) Proveedor.getInstance().getGp().getListaPersonaje();
         System.out.println("Personajes en la lista");
         System.out.println(personajes);
         System.out.println("Personajes en el tablero");
         for (int fila = 0; fila < tableroEnemigos.getNFilas(); fila++) {
             for (int col = 0; col < tableroEnemigos.getNColumnas(); col++) {
-                
-                    Personaje personaje = tableroEnemigos.getPersonaje(fila, col);
-                    System.out.print(personaje+" ");
-                    if (personaje instanceof Protagonista) {
-                        gridTableroPersonajes.add(new ImageView(prota), col, fila);
-                    } else if (personaje instanceof Enemigo) {
-                        gridTableroPersonajes.add(new ImageView(enemigo), col, fila);
-                    }
-                
+
+                Personaje personaje = tableroEnemigos.getPersonaje(fila, col);
+                System.out.print(personaje + " ");
+                if (personaje instanceof Protagonista) {
+                    gridTableroPersonajes.add(new ImageView(prota), col, fila);
+                } else if (personaje instanceof Enemigo) {
+                    gridTableroPersonajes.add(new ImageView(enemigo), col, fila);
+                }
+
             }
             System.out.println();
         }
@@ -173,14 +178,16 @@ public class Dungeon implements Observer {
             }
         }
     }
-    
-    
 
     @Override
     public void onChange() {
         GenerarMapaPersonajes();
-        if (Proveedor.getInstance().getFinJuego()) {
-            System.out.println("Fin partida");
+        if (gp.getProta().getVitalidad() <= 0) {
+            System.out.println("El protagonista ha muerto. Fin del juego.");
+            SceneManager.getInstance().loadScene(SceneID.finJuegoDerrota);
+        } else if (gp.getListaPersonaje().size() == 1) {
+            System.out.println("Todos los enemigos han sido derrotados. Fin del juego.");
+            SceneManager.getInstance().loadScene(SceneID.finJuegoVictoria);
         }
     }
 
