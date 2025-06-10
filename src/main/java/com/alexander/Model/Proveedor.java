@@ -1,6 +1,7 @@
 package com.alexander.Model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.alexander.Interfaces.Observer;
 
@@ -102,6 +103,15 @@ public class Proveedor {
             finJuego = true;
         }
         notifyObservers();
+    }
+    public void Maldicion(){
+        
+        Random r = new Random();
+        int per = r.nextInt(gp.getListaPersonaje().size());
+        
+        gp.getListaPersonaje().get(per).setVitalidad((gp.getListaPersonaje().get(per).getVitalidad()*25)/100);
+        System.out.println("Se le ha restado la vitalidad a "+gp.getListaPersonaje().get(per).toString());
+
     }
 
 }

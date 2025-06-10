@@ -89,9 +89,21 @@ public class Protagonista extends Personaje {
                 break;
         }
         System.out.println("Intentando mover al protagonista a: (" + nuevaX + ", " + nuevaY + ")");
+        
+        if (p.getTab().EstaCasillaEstaVacia(nuevaX, nuevaY)
+                && p.getTab().getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Maldicion) {
+            p.Maldicion();
+            System.out.println("Movimiento válido. Actualizando posición del protagonista.");
+            p.getTab().actualizarCasilla(p.getP(), nuevaX, nuevaY);
+            
+
+            // Mover a los enemigos después de mover al protagonista
+            
+        }
+
+
         if (p.getTab().EstaCasillaEstaVacia(nuevaX, nuevaY)
                 && p.getTab().getTipoCasilla(nuevaX, nuevaY) == TipoCasilla.Suelo) {
-            
             System.out.println("Movimiento válido. Actualizando posición del protagonista.");
             p.getTab().actualizarCasilla(p.getP(), nuevaX, nuevaY);
             

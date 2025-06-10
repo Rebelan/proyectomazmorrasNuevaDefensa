@@ -123,6 +123,9 @@ public class Enemigo extends Personaje implements Observer {
         if (p.getTab().getPersonaje(nuevaX, nuevaY)instanceof Protagonista) {
             p.getP().pegar(p.getTab().getPersonaje(nuevaX, nuevaY));
         }else{
+            if (p.getTab().getTipoCasilla(nuevaX, nuevaY)==TipoCasilla.Maldicion) {
+                p.Maldicion();
+            }
             tab.actualizarCasilla(this, nuevaX, nuevaY);
         }
         

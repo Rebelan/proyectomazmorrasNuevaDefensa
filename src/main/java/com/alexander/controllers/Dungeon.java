@@ -165,13 +165,18 @@ public class Dungeon implements Observer {
 
         Image camino = new Image(App.class.getResourceAsStream("data/SpriteCamino.jpg"), 50, 50, false, false);
         Image muro = new Image(App.class.getResourceAsStream("data/SpriteMuro.png"), 50, 50, false, false);
+        Image maldicion = new Image(App.class.getResourceAsStream("data/maldicion.png"),35,35,false, false);
 
         for (int fila = 0; fila < tablero.getNFilas(); fila++) {
             for (int col = 0; col < tablero.getNColumnas(); col++) {
                 if (tablero.getTipoCasilla(fila, col) == TipoCasilla.Pared) {
                     gridTablero.add(new ImageView(muro), col, fila);
-                } else {
+                }
+                if (tablero.getTipoCasilla(fila, col) == TipoCasilla.Suelo) {
                     gridTablero.add(new ImageView(camino), col, fila);
+                }
+                if (tablero.getTipoCasilla(fila, col) == TipoCasilla.Maldicion) {
+                    gridTablero.add(new ImageView(maldicion), col, fila);
                 }
             }
         }
